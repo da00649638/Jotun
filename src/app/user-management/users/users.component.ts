@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { UsersServiceService } from '../../services/users-service.service';
 
 @Component({
   selector: 'app-users',
@@ -7,9 +8,32 @@ import { Component, OnInit } from '@angular/core';
 })
 export class UsersComponent implements OnInit {
 
-  constructor() { }
+  constructor(private usersServiceService: UsersServiceService) { }
 
   ngOnInit() {
+  }
+
+  getAllUsers() {
+    this.usersServiceService.getAllUsers().subscribe(res => {
+      // this.moleculeId = res.id;
+      // this.drugProceedBtnDisable = false;
+      // this.spinner.hide();
+   });
+  }
+  addUserRoles() {
+    this.usersServiceService.addUserRoles().subscribe(res => {
+      // this.moleculeId = res.id;
+      // this.drugProceedBtnDisable = false;
+      // this.spinner.hide();
+   });
+  }
+
+  updateUsers() {
+  this.usersServiceService.updateUsers().subscribe(res => {
+    // this.moleculeId = res.id;
+    // this.drugProceedBtnDisable = false;
+    // this.spinner.hide();
+  });
   }
 
 }
