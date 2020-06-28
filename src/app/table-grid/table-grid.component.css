@@ -4,3 +4,16 @@ table {
 th.mat-sort-header-sorted {
     color: black;
   }
+  .example-no-results {
+    display: flex;
+    justify-content: center;
+    padding: 24px;
+    font-size: 12px;
+    font-style: italic;
+  }
+  ::ng-deep .mat-paginator-page-size{
+      display: none !important;
+  }
+  ::ng-deep .mat-paginator-range-actions {
+      display: contents !important;
+  }

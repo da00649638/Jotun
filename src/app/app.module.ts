@@ -19,9 +19,10 @@ import {MatPaginatorModule} from '@angular/material/paginator';
 import {MatSortModule} from '@angular/material/sort';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import {StylePaginatorDirective} from './table-grid/style-paginator.directive';
-
-
-
+import { FilterTableDataPipe } from './pipes/filter-table-pipe.pipe';
+import { FormsModule } from '@angular/forms';
+import {ObserversModule} from '@angular/cdk/observers';
+import {MatInputModule} from '@angular/material/input';
 
 
 @NgModule({
@@ -33,7 +34,8 @@ import {StylePaginatorDirective} from './table-grid/style-paginator.directive';
     HeaderComponent,
     FooterComponent,
     TableGridComponent,
-    StylePaginatorDirective
+    StylePaginatorDirective,
+    FilterTableDataPipe
   ],
   imports: [
     BrowserModule,
@@ -44,7 +46,10 @@ import {StylePaginatorDirective} from './table-grid/style-paginator.directive';
     MatTableModule,
     MatPaginatorModule,
     MatSortModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    FormsModule,
+    ObserversModule,
+    MatInputModule
   ],
   providers: [],
   bootstrap: [AppComponent]

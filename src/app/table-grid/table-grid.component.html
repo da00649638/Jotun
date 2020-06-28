@@ -1,13 +1,13 @@
 <br>
 <br>
 <br>
- 
-
-
- 
-
     <div class="container">
- 
+        <div class="example-header" [style.display]="selection.isEmpty() ? '' : 'none'">
+            <mat-form-field class="example-full-width">
+              <mat-label>Search Data</mat-label>
+              <input matInput  #filter placeholder="Search Data" >
+            </mat-form-field>
+          </div>
         <div class="mat-elevation-z8">
             <table mat-table [dataSource]="dataSource" matSort >
 
@@ -53,13 +53,15 @@
               <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
               <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
             </table>
-          
+            <div class="example-no-results"
+             [style.display]="dataSource && dataSource.filteredData && dataSource.filteredData.length == 0 ? '' : 'none'">
+              No users found matching filter.
+            </div>
            <mat-paginator style-paginator showFirstLastButtons  
               [showTotalPages]="5"
               [length]="15000"
               [pageSize]="5"
               [pageSizeOptions]="[5, 10, 25, 100]">
-</mat-paginator>
+            </mat-paginator>
           </div>
-
     </div>  
