@@ -1,5 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -9,6 +11,17 @@ import { UsersRolesComponent } from './user-management/users-roles/users-roles.c
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
 import { HttpClientModule } from '@angular/common/http';
+import { TableGridComponent } from './table-grid/table-grid.component';
+import { ToastrModule } from 'ngx-toastr';
+import {MatTableModule} from '@angular/material/table';
+import {MatPaginatorModule} from '@angular/material/paginator';
+
+import {MatSortModule} from '@angular/material/sort';
+import {MatCheckboxModule} from '@angular/material/checkbox';
+import {StylePaginatorDirective} from './table-grid/style-paginator.directive';
+
+
+
 
 
 @NgModule({
@@ -18,12 +31,20 @@ import { HttpClientModule } from '@angular/common/http';
     UsersComponent,
     UsersRolesComponent,
     HeaderComponent,
-    FooterComponent
+    FooterComponent,
+    TableGridComponent,
+    StylePaginatorDirective
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    BrowserAnimationsModule,
+    ToastrModule.forRoot(),
+    MatTableModule,
+    MatPaginatorModule,
+    MatSortModule,
+    MatCheckboxModule
   ],
   providers: [],
   bootstrap: [AppComponent]
