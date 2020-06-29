@@ -23,6 +23,8 @@ import { FilterTableDataPipe } from './pipes/filter-table-pipe.pipe';
 import { FormsModule } from '@angular/forms';
 import {ObserversModule} from '@angular/cdk/observers';
 import {MatInputModule} from '@angular/material/input';
+import { TreeModule } from 'ng2-tree';
+import { TreeViewComponent } from './tree-view/tree-view.component';
 
 
 @NgModule({
@@ -35,7 +37,8 @@ import {MatInputModule} from '@angular/material/input';
     FooterComponent,
     TableGridComponent,
     StylePaginatorDirective,
-    FilterTableDataPipe
+    FilterTableDataPipe,
+    TreeViewComponent
   ],
   imports: [
     BrowserModule,
@@ -49,7 +52,8 @@ import {MatInputModule} from '@angular/material/input';
     MatCheckboxModule,
     FormsModule,
     ObserversModule,
-    MatInputModule
+    MatInputModule,
+    TreeModule
   ],
   providers: [],
   bootstrap: [AppComponent]
