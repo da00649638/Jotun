@@ -13,6 +13,8 @@
     }
     .side-innerwrapper{
         height: calc(100vh - 150px);
+        height: -moz-calc(100vh - 150px);
+        height: -webkit-calc(100vh - 150px);
         overflow-y: auto;
         .list-unstyled {
             margin: 0;
@@ -118,7 +120,7 @@
     }
     
     .paint-img-block{
-        height: 300px;
+        min-height: 300px;
         background-image: url('../../assets/paint-pot.svg');
         background-repeat: no-repeat;
         background-size: cover;
