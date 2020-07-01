@@ -1,67 +1,82 @@
-<br>
-<br>
-<br>
-    <div class="container">
-        <div class="example-header" [style.display]="selection.isEmpty() ? '' : 'none'">
-            <mat-form-field class="example-full-width">
-              <mat-label>Search Data</mat-label>
-              <input matInput  #filter placeholder="Search Data" >
-            </mat-form-field>
+<div class="container">
+    <div class="sub-header-wrap d-flex justify-content-between" >
+      <div class="sub-header">
+        <div class="left-subheader d-flex flex-column">
+          <h4>User Management</h4>
+          <div class="sub-head-title d-flex">
+            <img src="../../assets/home-icon.svg" alt="no-image">
+            <span class="separator">/</span>
+            <span>User </span>
           </div>
-        <div class="mat-elevation-z8">
-            <table mat-table [dataSource]="dataSource" matSort >
+        </div>
+      </div>
+      <div class="right-sub-header">
+        <mat-form-field class="search-filter">
+          <mat-label>Search Data</mat-label>
+          <input matInput  #filter placeholder="Search Data" >
+        </mat-form-field>
+        <button class="deactive-btn">Deactivate</button>
+        <button class="add-user">
+          <img src="../../assets/add-user.svg" alt="no-image">
+          Add User
+        </button>
+      </div>
+      
+    </div>
+    <div class="mat-elevation-z8">
+        <table mat-table [dataSource]="dataSource" matSort >
 
-                <ng-container matColumnDef="select">
-                    <th mat-header-cell *matHeaderCellDef>
-                      <mat-checkbox (change)="$event ? masterToggle() : null"
-                                    [checked]="selection.hasValue() && isAllSelected()"
-                                    [indeterminate]="selection.hasValue() && !isAllSelected()">
-                      </mat-checkbox>
-                    </th>
-                    <td mat-cell *matCellDef="let row">
-                      <mat-checkbox (click)="$event.stopPropagation()"
-                                    (change)="$event ? selection.toggle(row) : null"
-                                    [checked]="selection.isSelected(row)">
-                      </mat-checkbox>
-                    </td>
-                  </ng-container>
-          
-              <!-- Position Column -->
-              <ng-container matColumnDef="position">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header> No. </th>
-                <td mat-cell *matCellDef="let element"> {{element.position}} </td>
+            <ng-container matColumnDef="select">
+                <th mat-header-cell *matHeaderCellDef>
+                  <mat-checkbox (change)="$event ? masterToggle() : null"
+                                [checked]="selection.hasValue() && isAllSelected()"
+                                [indeterminate]="selection.hasValue() && !isAllSelected()">
+                  </mat-checkbox>
+                </th>
+                <td mat-cell *matCellDef="let row">
+                  <mat-checkbox (click)="$event.stopPropagation()"
+                                (change)="$event ? selection.toggle(row) : null"
+                                [checked]="selection.isSelected(row)">
+                  </mat-checkbox>
+                </td>
               </ng-container>
-          
-              <!-- Name Column -->
-              <ng-container matColumnDef="name">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header> Name </th>
-                <td mat-cell *matCellDef="let element"> {{element.name}} </td>
-              </ng-container>
-          
-              <!-- Weight Column -->
-              <ng-container matColumnDef="weight">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header> Weight </th>
-                <td mat-cell *matCellDef="let element"> {{element.weight}} </td>
-              </ng-container>
-          
-              <!-- Symbol Column -->
-              <ng-container matColumnDef="symbol">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header> Symbol </th>
-                <td mat-cell *matCellDef="let element"> {{element.symbol}} </td>
-              </ng-container>
-          
-              <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-              <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-            </table>
-            <div class="example-no-results"
-             [style.display]="dataSource && dataSource.filteredData && dataSource.filteredData.length == 0 ? '' : 'none'">
-              No users found matching filter.
-            </div>
-           <mat-paginator style-paginator showFirstLastButtons  
-              [showTotalPages]="5"
-              [length]="15000"
-              [pageSize]="5"
-              [pageSizeOptions]="[5, 10, 25, 100]">
-            </mat-paginator>
-          </div>
-    </div>  
+      
+          <!-- Position Column -->
+          <ng-container matColumnDef="position">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> No. </th>
+            <td mat-cell *matCellDef="let element"> {{element.position}} </td>
+          </ng-container>
+      
+          <!-- Name Column -->
+          <ng-container matColumnDef="name">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Name </th>
+            <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+          </ng-container>
+      
+          <!-- Weight Column -->
+          <ng-container matColumnDef="weight">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Weight </th>
+            <td mat-cell *matCellDef="let element"> {{element.weight}} </td>
+          </ng-container>
+      
+          <!-- Symbol Column -->
+          <ng-container matColumnDef="symbol">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Symbol </th>
+            <td mat-cell *matCellDef="let element"> {{element.symbol}} </td>
+          </ng-container>
+      
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+        <div class="example-no-results"
+          [style.display]="dataSource && dataSource.filteredData && dataSource.filteredData.length == 0 ? '' : 'none'">
+          No users found matching filter.
+        </div>
+        <mat-paginator style-paginator showFirstLastButtons  
+          [showTotalPages]="5"
+          [length]="15000"
+          [pageSize]="5"
+          [pageSizeOptions]="[5, 10, 25, 100]">
+        </mat-paginator>
+      </div>
+</div>  

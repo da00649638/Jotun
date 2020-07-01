@@ -39,7 +39,7 @@ const ELEMENT_DATA: PeriodicElement[] = [
 @Component({
   selector: 'app-table-grid',
   templateUrl: './table-grid.component.html',
-  styleUrls: ['./table-grid.component.css']
+  styleUrls: ['./table-grid.component.scss']
 })
 export class TableGridComponent implements OnInit {
   constructor(private toastr: ToastrService) { }

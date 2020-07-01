@@ -1,0 +1,39 @@
+.headet-container{
+    box-shadow: 0 2px 4px 0 rgba(51, 70, 129, 0.1), inset 0 -1px 0 0 #e8ecef;
+    background-color: #ffffff;
+    padding: 20px 34px;
+    .inner-wrapper {
+        .notification-img{
+            padding: 0 20px;
+            position: relative;
+            .notification{
+                font-size: 8px;
+                font-weight: bold;
+                color: #fff;
+                background-color: #002664;
+                padding: 2px 5px;
+                border-radius: 50%;
+                position: absolute;
+                border: 2px solid #fff;
+                right: 15px;
+                top: -7px;
+            }
+        }
+        .profile-dropdown-wrap{
+            img{
+                width: 38px;
+                border-radius: 50%;
+                height: 38px;
+            }
+            .dropdown-toggle{
+                border: 0;
+                background-color: transparent;
+                color: #485468;
+                font-size: 16px;
+                font-weight: bold;
+                padding: 0 0 0 10px;
+                outline: none;
+            }
+        }
+    }
+}

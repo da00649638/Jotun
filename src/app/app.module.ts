@@ -25,6 +25,7 @@ import {ObserversModule} from '@angular/cdk/observers';
 import {MatInputModule} from '@angular/material/input';
 import { TreeModule } from 'ng2-tree';
 import { TreeViewComponent } from './tree-view/tree-view.component';
+import { SidenavBarComponent } from './sidenav-bar/sidenav-bar.component';
 
 
 @NgModule({
@@ -38,7 +39,8 @@ import { TreeViewComponent } from './tree-view/tree-view.component';
     TableGridComponent,
     StylePaginatorDirective,
     FilterTableDataPipe,
-    TreeViewComponent
+    TreeViewComponent,
+    SidenavBarComponent
   ],
   imports: [
     BrowserModule,

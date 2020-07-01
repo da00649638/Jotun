@@ -1,0 +1,12 @@
+
+.page-container{
+    overflow: hidden;
+    .page-wrapper{
+        width: 100%;
+        .section-container{
+            height: calc(100vh - 78px);
+            overflow-y: auto;
+            padding: 50px 40px;
+        }
+    }
+}
