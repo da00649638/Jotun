@@ -26,6 +26,8 @@ import {MatInputModule} from '@angular/material/input';
 import { TreeModule } from 'ng2-tree';
 import { TreeViewComponent } from './tree-view/tree-view.component';
 import { SidenavBarComponent } from './sidenav-bar/sidenav-bar.component';
+import { DialogAddUser } from './table-grid/table-grid.component';
+import { MatDialog, MatDialogModule, MAT_DIALOG_DEFAULT_OPTIONS, MatSelectModule, MatRadioModule } from '@angular/material';
 
 
 @NgModule({
@@ -40,7 +42,8 @@ import { SidenavBarComponent } from './sidenav-bar/sidenav-bar.component';
     StylePaginatorDirective,
     FilterTableDataPipe,
     TreeViewComponent,
-    SidenavBarComponent
+    SidenavBarComponent,
+    DialogAddUser
   ],
   imports: [
     BrowserModule,
@@ -55,9 +58,14 @@ import { SidenavBarComponent } from './sidenav-bar/sidenav-bar.component';
     FormsModule,
     ObserversModule,
     MatInputModule,
-    TreeModule
+    TreeModule,
+    MatDialogModule,
+    MatSelectModule,
+    MatRadioModule
   ],
-  providers: [],
-  bootstrap: [AppComponent]
+  providers:  [ ],
+  bootstrap: [AppComponent],
+  entryComponents: [DialogAddUser]
+
 })
 export class AppModule { }
