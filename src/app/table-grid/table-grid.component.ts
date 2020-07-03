@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, Inject } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import {SelectionModel} from '@angular/cdk/collections';
 import {MatPaginator} from '@angular/material/paginator';
@@ -6,7 +6,7 @@ import {MatTableDataSource} from '@angular/material/table';
 import {MatSort} from '@angular/material/sort';
 import {BehaviorSubject, Observable, fromEvent, merge} from 'rxjs';
 import { map, debounceTime, distinctUntilChanged, startWith } from 'rxjs/operators';
-
+import {MatDialog, MAT_DIALOG_DATA} from '@angular/material/dialog';
 export interface PeriodicElement {
   name: string;
   position: number;
@@ -42,14 +42,22 @@ const ELEMENT_DATA: PeriodicElement[] = [
   styleUrls: ['./table-grid.component.scss']
 })
 export class TableGridComponent implements OnInit {
-  constructor(private toastr: ToastrService) { }
+  constructor(private toastr: ToastrService, public dialog: MatDialog) { }
   displayedColumns: string[] = ['select', 'position', 'name', 'weight', 'symbol'];
   dataSource = new MatTableDataSource(ELEMENT_DATA);
   selection = new SelectionModel<PeriodicElement>(true, []);
   @ViewChild(MatSort, {static: true}) sort: MatSort;
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   @ViewChild('filter', {static: true}) filter: ElementRef;
-
+  public selectionOptions = [
+    {label: 'Norway Super User', value: 'Norway Super User'},
+    {label: 'Norway Super User', value: 'Norway Super User'},
+    {label: 'Pakistan RM', value: 'Pakistan RM'},
+    {label: 'China Chemist', value: 'China Chemist'},
+    {label: 'China Chemist', value: 'China Chemist'},
+    {label: 'China Chemist', value: 'China Chemist'}
+  ];
+  selectedText = 'Select User group';
   ngOnInit() {
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
@@ -78,4 +86,33 @@ export class TableGridComponent implements OnInit {
     filterValue = filterValue.toLowerCase(); // MatTableDataSource defaults to lowercase matches
     this.dataSource.filter = filterValue;
   }
+  openDialog(): void {
+    const dialogRef = this.dialog.open(DialogAddUser, {
+      width: '417px',
+      height: '100vh',
+      panelClass: 'my-dialog-container-class',
+      data: this.selectionOptions
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+      // this.animal = result;
+    });
+  }
+}
+
+@Component({
+  // tslint:disable-next-line:component-selector
+  selector: 'dialog-adduser',
+  templateUrl: 'dialog-adduser.component.html',
+})
+// tslint:disable-next-line:component-class-suffix
+export class DialogAddUser {
+  // dialogRef: any;
+
+  constructor(@Inject(MAT_DIALOG_DATA) public data: TableGridComponent) {}
+
+  // onNoClick(): void {
+  //   this.dialogRef.close();
+  // }
+
 }
