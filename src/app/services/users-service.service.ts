@@ -19,7 +19,7 @@ export class UsersServiceService {
   }
 
   public getAllUsers(): Observable<any> {
-    return this.http.get(this.configUrl + 'getAllUsers');
+    return this.http.get(this.configUrl + 'user_details');
   }
 
   public addUserRoles(): Observable<any> {

@@ -1,22 +1,22 @@
 {
   "user_details": [
     {
-           "user_id": "1",
-          "user_group": "Norway Super User",
-          "name": "Dontae",
-          "email_id": "Dontae@jotun.com",
-          "role": "Super User",
-          "status": "Active"
-      },
-      {
-        "user_id": "2",
+        "user_id": "1",
+        "user_group": "Norway Super User",
+        "name": "Dontae",
+        "email_id": "Dontae@jotun.com",
+        "role": "Super User",
+        "status": "Active"
+    },
+    {
+      "user_id": "2",
       "user_group": "Norway Recipe Responsible",
       "name": "Enyinnaya Chinedu",
       "email_id": "Enyinnaya@jotun.com",
       "role": "Recipe Responsible",
       "status": "Active"
-     }
-    ],
+    }
+  ],
   "comments": [
     {
       "id": 1,
