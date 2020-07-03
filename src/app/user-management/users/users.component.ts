@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, Inject } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import {SelectionModel} from '@angular/cdk/collections';
 import {MatPaginator} from '@angular/material/paginator';
@@ -6,59 +6,43 @@ import {MatTableDataSource} from '@angular/material/table';
 import {MatSort} from '@angular/material/sort';
 import {BehaviorSubject, Observable, fromEvent, merge} from 'rxjs';
 import { map, debounceTime, distinctUntilChanged, startWith } from 'rxjs/operators';
+import {MatDialog, MAT_DIALOG_DATA} from '@angular/material/dialog';
 
 import { UsersServiceService } from '../../services/users-service.service';
-
-export interface PeriodicElement {
-  user_id: number;
-  user_group: string;
-  name: string;
-  email_id: string;
-  role: string;
-  status: string;
-}
-
-const ELEMENT_DATA: PeriodicElement[] = [
-  {user_id: 1, user_group: 'Norway Super User', name: 'Donate', email_id: 'donate@jotun.com', role: 'Super User', status: 'Active'},
-  {user_id: 2, user_group: 'Helium',  name: 'Donate12', email_id: 'donate@jotun.com', role: 'Super User', status: 'Active'},
-  {user_id: 3, user_group: 'Lithium', name: 'Donate', email_id: 'donate@jotun.com', role: 'Super User', status: 'Active'},
-  {user_id: 4, user_group: 'Beryllium', name: 'Donate', email_id: 'donate@jotun.com', role: 'Super User', status: 'Active'},
-  {user_id: 5, user_group: 'Boron', name: 'Donate', email_id: 'donate@jotun.com', role: 'Super User', status: 'Active'},
-  {user_id: 6, user_group: 'Carbon', name: 'Donate', email_id: 'donate@jotun.com', role: 'Super User', status: 'Active'},
-  {user_id: 7, user_group: 'Nitrogen', name: 'Donate', email_id: 'donate@jotun.com', role: 'Super User', status: 'Active'},
-  {user_id: 8, user_group: 'Oxygen', name: 'Donate', email_id: 'donate@jotun.com', role: 'Super User', status: 'Active'},
-  {user_id: 9, user_group: 'Fluorine', name: 'Donate', email_id: 'donate@jotun.com', role: 'Super User', status: 'Active'},
-  {user_id: 10, user_group: 'Neon', name: 'Donate', email_id: 'donate@jotun.com', role: 'Super User', status: 'Active'},
-  {user_id: 11, user_group: 'Sodium', name: 'Donate', email_id: 'donate@jotun.com', role: 'Super User', status: 'Active'},
-  {user_id: 12, user_group: 'Magnesium', name: 'Donate', email_id: 'donate@jotun.com', role: 'Super User', status: 'Active'},
-  {user_id: 13, user_group: 'Aluminum', name: 'Donate', email_id: 'donate@jotun.com', role: 'Super User', status: 'Active'},
-  {user_id: 14, user_group: 'Silicon', name: 'Donate', email_id: 'donate@jotun.com', role: 'Super User', status: 'Active'},
-  {user_id: 15, user_group: 'Phosphorus', name: 'Donate', email_id: 'donate@jotun.com', role: 'Super User', status: 'Active'},
-  {user_id: 16, user_group: 'Sulfur', name: 'Donate', email_id: 'donate@jotun.com', role: 'Super User', status: 'Active'},
-  {user_id: 17, user_group: 'Chlorine', name: 'Donate', email_id: 'donate@jotun.com', role: 'Super User', status: 'Active'},
-  {user_id: 18, user_group: 'Argon', name: 'Donate', email_id: 'donate@jotun.com', role: 'Super User', status: 'Active'},
-  {user_id: 19, user_group: 'Potassium', name: 'Donate', email_id: 'donate@jotun.com', role: 'Super User', status: 'Active'},
-  {user_id: 20, user_group: 'Calcium', name: 'Donate', email_id: 'donate@jotun.com', role: 'Super User', status: 'Active'},
-];
 
 @Component({
   selector: 'app-users',
   templateUrl: './users.component.html',
   styleUrls: ['./users.component.scss']
 })
-export class UsersComponent implements OnInit {
 
-  constructor(private toastr: ToastrService, private usersServiceService: UsersServiceService) { }
-  displayedColumns: string[] = ['select', 'position', 'name', 'weight', 'symbol'];
-  dataSource = new MatTableDataSource(ELEMENT_DATA);
-  selection = new SelectionModel<PeriodicElement>(true, []);
+export class UsersComponent implements OnInit {
+  public users: any = [];
+  public dataSource: any;
+  public selection: any;
+  constructor(private toastr: ToastrService, private usersServiceService: UsersServiceService, public dialog: MatDialog) { }
+  displayedColumns: string[] = ['select', 'user_group', 'name', 'email_id', 'role', 'status'];
   @ViewChild(MatSort, {static: true}) sort: MatSort;
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   @ViewChild('filter', {static: true}) filter: ElementRef;
+  public selectionOptions = [
+    {label: 'Norway Super User', value: 'Norway Super User'},
+    {label: 'Norway Super User', value: 'Norway Super User'},
+    {label: 'Pakistan RM', value: 'Pakistan RM'},
+    {label: 'China Chemist', value: 'China Chemist'},
+    {label: 'China Chemist', value: 'China Chemist'},
+    {label: 'China Chemist', value: 'China Chemist'}
+  ];
+  selectedText = 'Select User group';
 
   ngOnInit() {
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
+    this.usersServiceService.getAllUsers().subscribe(res => {
+      this.users = res;
+      this.dataSource = new MatTableDataSource(this.users);
+      this.selection = new SelectionModel(true, []);
+      this.dataSource.paginator = this.paginator;
+      this.dataSource.sort = this.sort;
+    });
     fromEvent(this.filter.nativeElement, 'keyup')
     .pipe(debounceTime(150),
     distinctUntilChanged()
@@ -85,6 +69,18 @@ export class UsersComponent implements OnInit {
     filterValue = filterValue.toLowerCase(); // MatTableDataSource defaults to lowercase matches
     this.dataSource.filter = filterValue;
   }
+  openDialog(): void {
+    const dialogRef = this.dialog.open(DialogAddUser, {
+      width: '417px',
+      height: '100vh',
+      panelClass: 'my-dialog-container-class',
+      data: this.selectionOptions
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+      // this.animal = result;
+    });
+  }
 
   getAllUsers() {
     this.usersServiceService.getAllUsers().subscribe(res => {
@@ -108,5 +104,22 @@ export class UsersComponent implements OnInit {
       // this.spinner.hide();
     });
   }
+
+}
+
+@Component({
+  // tslint:disable-next-line:component-selector
+  selector: 'dialog-adduser',
+  templateUrl: 'dialog-adduser.component.html',
+})
+// tslint:disable-next-line:component-class-suffix
+export class DialogAddUser {
+  // dialogRef: any;
+
+  constructor(@Inject(MAT_DIALOG_DATA) public data: UsersComponent) {}
+
+  // onNoClick(): void {
+  //   this.dialogRef.close();
+  // }
 
 }

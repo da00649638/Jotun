@@ -1,0 +1,42 @@
+<div class="adduser-dialog-container">
+    <div class="adduser-title d-flex justify-content-between align-items-center">
+        <h3>Add New User</h3>
+        <img src="../../assets/close-icon.svg" alt="no-image" [mat-dialog-close]="true">
+    </div>
+    <form class="dialog-section-wrapper">
+        <div class="search-wrap">
+            <span class="input-label">Search for User in active directory</span>
+            <mat-form-field class="form-input" appearance="standard">
+                <input class="toolbar-search" type="text" matInput placeholder="Enter Email ID">
+            </mat-form-field>
+        </div>
+        <div class="roles-wrap">
+            <span class="roles-title">Roles</span>
+            <div class="roles-radio-btn">
+                <mat-radio-group class="d-flex flex-wrap justify-content-between">
+                    <mat-radio-button class="radio-btn" value="1">Super User</mat-radio-button>
+                    <mat-radio-button class="radio-btn" value="2">Recipe Responsible</mat-radio-button>
+                    <mat-radio-button class="radio-btn" value="3">RM Manager</mat-radio-button>
+                    <mat-radio-button class="radio-btn" value="4">Local Chemist</mat-radio-button>
+                   
+                </mat-radio-group>
+                
+            </div>
+        </div>
+        <div class="roles-wrap selection-wrap d-flex flex-column">
+            <span class="roles-title">User Groups</span>
+            <mat-form-field appearance="fill">
+                <mat-select [(ngModel)]=ji placeholder="Select User group" name="Select User group">
+                  <mat-option *ngFor="let option of data" [value]="option.value">
+                    {{option.value}}
+                  </mat-option>
+                </mat-select>
+                
+              </mat-form-field>
+        </div>
+        <div class="button-wrap d-flex justify-content-end">
+            <button [mat-dialog-close]="true" class="cancel-btn">Cancel</button>
+            <button class="add-user">Add User</button>
+        </div>
+    </form>
+</div>

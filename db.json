@@ -1,12 +1,12 @@
 {
   "user_details": [
     {
-        "user_id": "1",
-        "user_group": "Norway Super User",
-        "name": "Dontae",
-        "email_id": "Dontae@jotun.com",
-        "role": "Super User",
-        "status": "Active"
+      "user_id": "1",
+      "user_group": "Norway Super User",
+      "name": "Dontae",
+      "email_id": "Dontae@jotun.com",
+      "role": "Super User",
+      "status": "Active"
     },
     {
       "user_id": "2",
