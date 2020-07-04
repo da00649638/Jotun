@@ -23,8 +23,8 @@
       </div>
       
     </div>
-    <div class="mat-elevation-z8">
-        <table mat-table [dataSource]="dataSource" matSort >
+    <div class="mat-elevation-z8 table-wrapper">
+        <table mat-table [dataSource]="dataSource" matSort  class="table-container">
 
             <ng-container matColumnDef="select">
                 <th mat-header-cell *matHeaderCellDef>
@@ -44,7 +44,7 @@
           <!-- User Group Column -->
           <ng-container matColumnDef="user_group">
             <th mat-header-cell *matHeaderCellDef mat-sort-header> User Group </th>
-            <td mat-cell *matCellDef="let element"> {{element.user_group}} </td>
+            <td mat-cell  *matCellDef="let element"> {{element.user_group}} </td>
           </ng-container>
       
           <!-- Name Column -->
@@ -68,7 +68,25 @@
           <!-- Status Column -->
           <ng-container matColumnDef="status">
             <th mat-header-cell *matHeaderCellDef mat-sort-header> Status </th>
-            <td mat-cell *matCellDef="let element"> {{element.status}} </td>
+            <td mat-cell *matCellDef="let element"> 
+              <div  class="d-flex align-items-center">
+                <span class="user-active"></span>{{element.status}} 
+                <div class="active-row d-flex align-items-center">
+                  <div class="edit-icon">
+                    <img src="../../../assets/edit-icon.svg" alt="no-image"/>
+                    <span class="edit-tooltip">Edit</span>
+                  </div>
+                  <label class="switch">
+                    <input type="checkbox" id="togBtn">
+                    <div class="slider round">
+                      <span class="active-toolptip off">Active</span>
+                      <span class="active-toolptip on">Deactive</span>
+                    </div>
+                  </label>
+                </div>
+              </div>
+              
+            </td>
           </ng-container>
       
           <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
@@ -78,11 +96,12 @@
           [style.display]="dataSource && dataSource.filteredData && dataSource.filteredData.length == 0 ? '' : 'none'">
           No users found matching filter.
         </div>
-        <mat-paginator style-paginator showFirstLastButtons  
+        <mat-paginator style-paginator class="paginator-container"
           [showTotalPages]="5"
-          [length]="15000"
-          [pageSize]="5"
-          [pageSizeOptions]="[5, 10, 25, 100]">
+          [length]="length"
+          [pageSize]="pageSize"
+          [pageSizeOptions]="pageSizeOptions"
+          (page)="pageEvent = $event">
         </mat-paginator>
       </div>
 </div>  

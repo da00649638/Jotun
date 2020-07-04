@@ -20,6 +20,9 @@ export class UsersComponent implements OnInit {
   public users: any = [];
   public dataSource: any;
   public selection: any;
+  pageSizeOptions: number[] = [5, 10, 25, 100];
+  length = 100;
+  pageSize = 10;
   constructor(private toastr: ToastrService, private usersServiceService: UsersServiceService, public dialog: MatDialog) { }
   displayedColumns: string[] = ['select', 'user_group', 'name', 'email_id', 'role', 'status'];
   @ViewChild(MatSort, {static: true}) sort: MatSort;
@@ -104,9 +107,12 @@ export class UsersComponent implements OnInit {
       // this.spinner.hide();
     });
   }
-
+  setPageSizeOptions(setPageSizeOptionsInput: string) {
+    if (setPageSizeOptionsInput) {
+      this.pageSizeOptions = setPageSizeOptionsInput.split(',').map(str => +str);
+    }
+  }
 }
-
 @Component({
   // tslint:disable-next-line:component-selector
   selector: 'dialog-adduser',
