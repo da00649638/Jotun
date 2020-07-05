@@ -104,6 +104,155 @@ th.mat-sort-header-sorted {
           }
       }
   }
+ 
+  ::ng-deep.my-dialog-container-class{
+    .mat-dialog-container{
+        padding: 0;
+        box-shadow: 0 23px 10px 0 rgba(0, 0, 0, 0.2);
+        background-color: #fff;
+        .adduser-dialog-container{
+            .adduser-title{
+                padding: 18px 35px;
+                background-color: #f8faff;
+                h3{
+                    font-size: 20px;
+                    font-weight: normal;
+                    color: #002468;
+                    margin-bottom: 0;
+                }
+            }
+            .dialog-section-wrapper{
+                padding: 30px 35px;
+                .search-wrap{
+                    .input-label{
+                        font-size: 14px;
+                        font-weight: bold;
+                        color: #485468;
+                        line-height: 1.43;
+                        display: inline-block;
+                        margin-bottom: 13px;
+                    }
+                    .form-input{
+                        width: 100%;
+                        .mat-form-field-wrapper{
+                            padding: 0;
+                            .mat-form-field-infix{
+                                margin: 0;
+                                border-radius: 4px;
+                                border: solid 1px #d9e1ec;
+                                padding: 8px 16px;
+                                color: #a1a7c4;
+                                font-size: 14px;
+                                line-height: 1.71;
+                                margin-bottom: 30px;
+                                
+                            }
+                            .mat-form-field-underline{
+                                display: none;
+                            }
+                        }
+                    }
+                }
+                .roles-wrap{
+                    .roles-title{
+                        font-size: 14px;
+                        line-height: 1.43;
+                        color: #485468;
+                        font-weight: bold;
+                        display: inline-block;
+                        margin-bottom: 14px;
+                    }
+                    .roles-radio-btn{
+                        .radio-btn{
+                            width: 50%;
+                            margin-bottom: 10px;
+                            &.mat-radio-button.mat-accent.mat-radio-checked .mat-radio-outer-circle{
+                                border-color: #002664;
+                                background-color: #002664;
+                            }
+                            &.mat-radio-button.mat-accent .mat-radio-inner-circle{
+                                background-color: #fff;
+                            }
+                            .mat-radio-label-content{
+                                color: #131523;
+                                font-size: 14px;
+                                line-height: 1.71;
+                            }
+                        }
+                    }
+                    
+                }
+                .selection-wrap{
+                    margin-top: 20px;
+                    .mat-form-field-wrapper{
+                        margin: 0;
+                        border-radius: 4px;
+                        border: solid 1px #d9e1ec;
+                        padding: 8px 16px;
+                        color: #a1a7c4;
+                        font-size: 14px;
+                        line-height: 1.71;
+                        .mat-form-field-flex{
+                            padding: 0;
+                            background-color: transparent;
+                            .mat-form-field-infix{
+                                margin: 0;
+                                padding: 0;
+                                border: 0;
+                                .mat-select-arrow-wrapper{
+                                    padding: 0;
+                                    display: block;
+                                }
+                                .mat-form-field-label-wrapper{
+                                    padding: 0;
+                                }
+                               
+                            }
+                            
+                        }
+                        .mat-form-field-underline {
+                            display: none;
+                        }
+                        .mat-select-value-text {
+                            .ng-star-inserted{
+                                color: #a1a7c4;
+                                font-size: 14px;
+                                line-height: 1.71;
+                            }
+                        }
+                        
+                    }
+                }
+                .button-wrap{
+                    margin-top: 30px;
+                    button{
+                        border-radius: 4px;
+                        border: solid 1px #002664;
+                        background-color: #fff;
+                        font-size: 16px;
+                        line-height: 1.5;
+                        color: #002664;
+                        padding: 8px 34px;
+                        &:first-child{
+                            margin-right: 15px;
+                        }
+                        &.add-user{
+                            background-color: #002664;
+                            color: #fff;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+  
+::ng-deep.cdk-overlay-backdrop.cdk-overlay-backdrop-showing{
+    opacity: 0!important;
+}
+::ng-deep.cdk-overlay-container .cdk-global-overlay-wrapper{
+    justify-content: flex-end!important;
+}
 
   .mat-checkbox-checked.mat-accent .mat-checkbox-background, .mat-checkbox-indeterminate.mat-accent .mat-checkbox-background {
     background-color: #002664 !important;
