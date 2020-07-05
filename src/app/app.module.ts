@@ -28,6 +28,7 @@ import { TreeViewComponent } from './tree-view/tree-view.component';
 import { SidenavBarComponent } from './sidenav-bar/sidenav-bar.component';
 import { DialogAddUser } from './table-grid/table-grid.component';
 import { MatDialog, MatDialogModule, MAT_DIALOG_DEFAULT_OPTIONS, MatSelectModule, MatRadioModule } from '@angular/material';
+import { RawMaterialComponent } from './raw-material/raw-material.component';
 
 
 @NgModule({
@@ -43,7 +44,8 @@ import { MatDialog, MatDialogModule, MAT_DIALOG_DEFAULT_OPTIONS, MatSelectModule
     FilterTableDataPipe,
     TreeViewComponent,
     SidenavBarComponent,
-    DialogAddUser
+    DialogAddUser,
+    RawMaterialComponent
   ],
   imports: [
     BrowserModule,

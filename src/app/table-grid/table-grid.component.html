@@ -11,8 +11,7 @@
         </div>
       </div>
       <div class="right-sub-header">
-        <mat-form-field class="search-filter">
-          <mat-label>Search Data</mat-label>
+        <mat-form-field class="search-filter"  appearance="standard">
           <input matInput  #filter placeholder="Search Data" >
         </mat-form-field>
         <button class="deactive-btn">Deactivate</button>
@@ -23,8 +22,8 @@
       </div>
       
     </div>
-    <div class="mat-elevation-z8">
-        <table mat-table [dataSource]="dataSource" matSort >
+    <div class="mat-elevation-z8  table-wrapper" >
+        <table mat-table [dataSource]="dataSource" matSort  class="table-container">
 
             <ng-container matColumnDef="select">
                 <th mat-header-cell *matHeaderCellDef>
@@ -72,7 +71,7 @@
           [style.display]="dataSource && dataSource.filteredData && dataSource.filteredData.length == 0 ? '' : 'none'">
           No users found matching filter.
         </div>
-        <mat-paginator style-paginator showFirstLastButtons  
+        <mat-paginator style-paginator   class="paginator-container"
           [showTotalPages]="5"
           [length]="15000"
           [pageSize]="5"
