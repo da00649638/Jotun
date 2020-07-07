@@ -1,0 +1,55 @@
+
+::ng-deep.table-container {
+    .example-element-row {
+        cursor: pointer;
+        .mat-cell{
+            div{
+                img{
+                    transform: rotate(270deg);
+                }
+            }
+        }
+    }
+    .example-expanded-row{
+        .mat-cell{
+            div{
+                img{
+                    transform: rotate(0);
+                }
+            }
+        }
+    }
+    tbody{
+        tr{
+            
+           
+            
+            
+            &.example-detail-row{
+                height: 0;
+                opacity: 0;
+               
+                td{
+                    border: 0;
+                }
+            }
+        }
+        .example-expanded-row{
+            + tr{
+                height: auto;
+                opacity: 1;
+               
+                td{
+                    min-height: 42px;
+                    padding:11px 10px;
+                    border-bottom: solid 1px #d4e5f9;
+                }
+               
+            }
+            
+        }
+    }
+}
+::ng-deep.head-arrow{
+    opacity: 0;
+}

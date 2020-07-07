@@ -1,3 +1,306 @@
 @import "~bootstrap/dist/css/bootstrap.css";
 html, body { height: 100%; }
 body { margin: 0; overflow-y: hidden; font-family: Roboto, "Helvetica Neue", sans-serif; background-color: #f7f9fa;}
+.sub-header-wrap{
+    margin-bottom: 26px;
+  .sub-header{
+      .left-subheader{
+          h4{
+              font-size: 26px;
+              font-weight: normal;
+              color: #002468;
+              margin-bottom: 9px;
+          }
+          .sub-head-title{
+              span{
+                  font-size: 14px;
+                  font-weight: normal;
+                  color: rgba(0, 0, 0, 0.85);
+                  &.separator{
+                      padding: 0 10px;
+                  }
+              }
+          }
+      }
+    }
+    .right-sub-header{
+        ::ng-deep.search-filter{
+          .mat-form-field-label {
+              padding-left: 20px;
+          }
+            .mat-form-field-wrapper{
+                padding: 0;
+                .mat-form-field-underline{
+                    display: none;
+                }
+            }
+          .mat-form-field-flex{
+              margin: 0;
+              border: 0;
+              .mat-form-field-infix{
+                  border-radius: 4px;
+                  border: solid 1.5px rgba(0, 38, 100, 0.6);
+                  background-color: #fff;
+                  padding: 10px 24px;
+                  min-width: 246px;
+                  opacity: 0.6;
+                  position: relative;
+                  &:after{
+                      position: absolute;
+                      content: '';
+                      background-image: url('./assets/search-icon.svg');
+                      background-repeat: no-repeat;
+                      background-size: cover;
+                      width: 19px;
+                      height: 19px;
+                      top: 9px;
+                      right: 10px;
+                  }
+              }
+          }
+        }
+       
+        button{
+              border: 0;
+              background-color: transparent;
+              font-size: 14px;
+              color: #002664;
+              border-radius: 4px;
+              border: solid 1.5px rgba(0, 38, 100, 0.6);
+              background-color: #fff;
+              padding: 8px 25px;
+              outline: none;
+              &.deactive-btn{
+                  margin-left: 16px;
+              }
+              &.add-user{
+                  background-color: #002664;
+                  color: #fff;
+                  margin-left: 17px;
+                  padding: 8px 14px;
+              }
+        }
+    }
+}
+.sub-header-wrap{
+    margin-bottom: 26px;
+  .sub-header{
+      .left-subheader{
+          h4{
+              font-size: 26px;
+              font-weight: normal;
+              color: #002468;
+              margin-bottom: 9px;
+          }
+          .sub-head-title{
+              span{
+                  font-size: 14px;
+                  font-weight: normal;
+                  color: rgba(0, 0, 0, 0.85);
+                  &.separator{
+                      padding: 0 10px;
+                  }
+              }
+          }
+      }
+  }
+  .right-sub-header{
+    .search-filter{
+        .mat-form-field-label {
+            padding-left: 20px!important;
+        }
+        .mat-form-field-wrapper{
+            padding: 0;
+            .mat-form-field-underline{
+                display: none;
+            }
+        }
+      .mat-form-field-flex{
+          margin: 0;
+          border: 0;
+          .mat-form-field-infix{
+              border-radius: 4px;
+              border: solid 1.5px rgba(0, 38, 100, 0.6);
+              background-color: #fff;
+              padding: 10px 24px;
+              min-width: 246px;
+              opacity: 0.6;
+              position: relative;
+              &:after{
+                    position: absolute;
+                    content: '';
+                    background-image: url('./assets/search-icon.svg');
+                    background-repeat: no-repeat;
+                    background-size: cover;
+                    width: 19px;
+                    height: 19px;
+                    top: 9px;
+                    right: 10px;
+                }
+            }
+        }
+    }
+      
+      button{
+          border: 0;
+          background-color: transparent;
+          font-size: 14px;
+          color: #002664;
+          border-radius: 4px;
+          border: solid 1.5px rgba(0, 38, 100, 0.6);
+          background-color: #fff;
+          padding: 8px 25px;
+          outline: none;
+          &.deactive-btn{
+              margin-left: 16px;
+          }
+          &.add-user{
+              background-color: #002664;
+              color: #fff;
+              margin-left: 17px;
+              padding: 8px 14px;
+          }
+      }
+  }
+}
+::ng-deep.my-dialog-container-class{
+  .mat-dialog-container{
+      padding: 0;
+      box-shadow: 0 23px 10px 0 rgba(0, 0, 0, 0.2);
+      background-color: #fff;
+      .adduser-dialog-container{
+          .adduser-title{
+              padding: 18px 35px;
+              background-color: #f8faff;
+              h3{
+                  font-size: 20px;
+                  font-weight: normal;
+                  color: #002468;
+                  margin-bottom: 0;
+              }
+          }
+          .dialog-section-wrapper{
+              padding: 30px 35px;
+              .search-wrap{
+                  .input-label{
+                      font-size: 14px;
+                      font-weight: bold;
+                      color: #485468;
+                      line-height: 1.43;
+                      display: inline-block;
+                      margin-bottom: 13px;
+                  }
+                  .form-input{
+                      width: 100%;
+                      .mat-form-field-wrapper{
+                          padding: 0;
+                          .mat-form-field-infix{
+                              margin: 0;
+                              border-radius: 4px;
+                              border: solid 1px #d9e1ec;
+                              padding: 8px 16px;
+                              color: #a1a7c4;
+                              font-size: 14px;
+                              line-height: 1.71;
+                              margin-bottom: 30px;
+                              
+                          }
+                          .mat-form-field-underline{
+                              display: none;
+                          }
+                      }
+                  }
+              }
+              .roles-wrap{
+                  .roles-title{
+                      font-size: 14px;
+                      line-height: 1.43;
+                      color: #485468;
+                      font-weight: bold;
+                      display: inline-block;
+                      margin-bottom: 14px;
+                  }
+                  .roles-radio-btn{
+                      .radio-btn{
+                          width: 50%;
+                          margin-bottom: 10px;
+                          &.mat-radio-button.mat-accent.mat-radio-checked .mat-radio-outer-circle{
+                              border-color: #002664;
+                              background-color: #002664;
+                          }
+                          &.mat-radio-button.mat-accent .mat-radio-inner-circle{
+                              background-color: #fff;
+                          }
+                          .mat-radio-label-content{
+                              color: #131523;
+                              font-size: 14px;
+                              line-height: 1.71;
+                          }
+                      }
+                  }
+                  
+              }
+              .selection-wrap{
+                  margin-top: 20px;
+                  .mat-form-field-wrapper{
+                      margin: 0;
+                      border-radius: 4px;
+                      border: solid 1px #d9e1ec;
+                      padding: 8px 16px;
+                      color: #a1a7c4;
+                      font-size: 14px;
+                      line-height: 1.71;
+                      .mat-form-field-flex{
+                          padding: 0;
+                          background-color: transparent;
+                          .mat-form-field-infix{
+                              margin: 0;
+                              padding: 0;
+                              border: 0;
+                              .mat-select-arrow-wrapper{
+                                  padding: 0;
+                                  display: block;
+                              }
+                              .mat-form-field-label-wrapper{
+                                  padding: 0;
+                              }
+                             
+                          }
+                          
+                      }
+                      .mat-form-field-underline {
+                          display: none;
+                      }
+                      .mat-select-value-text {
+                          .ng-star-inserted{
+                              color: #a1a7c4;
+                              font-size: 14px;
+                              line-height: 1.71;
+                          }
+                      }
+                      
+                  }
+              }
+              .button-wrap{
+                  margin-top: 30px;
+                  button{
+                      border-radius: 4px;
+                      border: solid 1px #002664;
+                      background-color: #fff;
+                      font-size: 16px;
+                      line-height: 1.5;
+                      color: #002664;
+                      padding: 8px 34px;
+                      &:first-child{
+                          margin-right: 15px;
+                      }
+                      &.add-user{
+                          background-color: #002664;
+                          color: #fff;
+                      }
+                  }
+              }
+          }
+      }
+  }
+}

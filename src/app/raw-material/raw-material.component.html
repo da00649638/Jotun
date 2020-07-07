@@ -1,1 +1,89 @@
-<p>raw-material works!</p>
+<div class="container">
+    <div class="sub-header-wrap d-flex justify-content-between" >
+      <div class="sub-header">
+        <div class="left-subheader d-flex flex-column">
+          <h4>User Management</h4>
+          <div class="sub-head-title d-flex">
+            <img src="../../assets/home-icon.svg" alt="no-image">
+            <span class="separator">/</span>
+            <span>User </span>
+          </div>
+        </div>
+      </div>
+      <div class="right-sub-header">
+        <mat-form-field class="search-filter" appearance="standard">
+          <!-- <mat-label>Search Data</mat-label> -->
+          <input matInput  #filter placeholder="Search Data" >
+        </mat-form-field>
+        <button class="deactive-btn">Deactivate</button>
+        <button class="deactive-btn"> Add New Group</button>
+        <button class="add-user">
+          <img src="../../assets/add-user.svg" alt="no-image">
+          Add New Material
+        </button>
+      </div>
+      
+    </div>
+    <div class="mat-elevation-z8 table-wrapper">
+        <table mat-table multiTemplateDataRows [dataSource]="dataSource" matSort  class="table-container">
+
+            <ng-container matColumnDef="select">
+                <th mat-header-cell *matHeaderCellDef>
+                    <div class="d-flex align-items-center justify-content-around">
+                        <img src="../../assets/downArrow.svg" alt="no-image" class="head-arrow">
+                        <mat-checkbox (change)="$event ? masterToggle() : null"
+                                        [checked]="selection.hasValue() && isAllSelected()"
+                                        [indeterminate]="selection.hasValue() && !isAllSelected()">
+                        </mat-checkbox>
+                    </div>
+                </th>
+                <td mat-cell *matCellDef="let row">
+                    <div class="d-flex align-items-center justify-content-around">
+                        <img src="../../assets/downArrow.svg" alt="no-image">
+                        <mat-checkbox (click)="$event.stopPropagation()"
+                                        (change)="$event ? selection.toggle(row) : null"
+                                        [checked]="selection.isSelected(row)">
+                        </mat-checkbox>
+                    </div>
+                    
+                </td>
+              </ng-container>
+      
+          <!-- Raw Material Column -->
+          <ng-container matColumnDef="{{column}}" *ngFor="let column of displayedColumns | slice:1 ">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> {{column | titlecase}} </th>
+            <td mat-cell *matCellDef="let element"> {{element[column]}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="expandedDetail">
+            <td mat-cell *matCellDef="let element" [attr.colspan]="displayedColumns.length">
+              <div class="example-element-detail"
+                   [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
+                    hii
+                
+              </div>
+            </td>
+          </ng-container>
+        
+      
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let element; columns: displayedColumns;"
+            class="example-element-row"
+            [class.example-expanded-row]="expandedElement === element"
+            (click)="expandedElement = element">
+        </tr>
+        <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="example-detail-row"></tr>
+        </table>
+        <div class="example-no-results"
+          [style.display]="dataSource && dataSource.filteredData && dataSource.filteredData.length == 0 ? '' : 'none'">
+          No users found matching filter.
+        </div>
+        <mat-paginator style-paginator class="paginator-container"
+          [showTotalPages]="5"
+          [length]="15000"
+          [pageSize]="5"
+          [pageSizeOptions]="[5, 10, 25, 100]"
+          (page)="pageEvent = $event;">
+        </mat-paginator>
+      </div>
+</div>  

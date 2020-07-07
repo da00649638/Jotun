@@ -29,4 +29,7 @@ export class UsersServiceService {
   public updateUsers(): Observable<any> {
     return this.http.get(this.configUrl + 'updateUsers');
   }
+  public rawMaterials(): Observable<any> {
+    return this.http.get(this.configUrl + 'raw_materials');
+  }
 }

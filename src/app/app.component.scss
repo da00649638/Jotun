@@ -16,12 +16,14 @@
    .table-container{
        border-radius: 4px;
        border: solid 1px #d4e5f9;
+       width: 100%;
        tr th, tr td{
            border-bottom: solid 1px #d4e5f9;
        }
        thead tr{
            background-color: #f8faff;
            th {
+               padding:0 10px;
                .mat-sort-header-container {
                    .mat-sort-header-button{
                        font-size: 14px;
@@ -37,6 +39,7 @@
                font-size: 14px;
                line-height: 1.71;
                color: #0f1b41;
+               padding: 0px 10px;
                .user-active, .user-inactive{
                    display: inline-block;
                    width: 10px;
@@ -237,6 +240,15 @@
        }
        
     }
+    .mat-form-field-infix{
+        border-radius: 4px;
+        border: solid 1px #637ba0;
+        background-color: #ffffff;
+        padding: 6px 10px;
+    }
+    .mat-form-field-underline{
+        display: none;
+    }
     .mat-mini-fab{
        width: auto;
        height: auto;
@@ -256,3 +268,4 @@
         background-color: #002664!important;
    }
 }
+

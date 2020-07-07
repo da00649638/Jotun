@@ -37,6 +37,7 @@ export class UsersComponent implements OnInit {
 
   ngOnInit() {
     this.usersServiceService.getAllUsers().subscribe(res => {
+      debugger
       this.users = res;
       this.dataSource = new MatTableDataSource(this.users);
       this.selection = new SelectionModel(true, []);
@@ -50,6 +51,7 @@ export class UsersComponent implements OnInit {
       if (!this.dataSource) { return; }
       this.dataSource.filter = this.filter.nativeElement.value;
     });
+    console.log('dataSource', this.dataSource);
   }
 
   isAllSelected() {

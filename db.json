@@ -26,5 +26,49 @@
   ],
   "profile": {
     "name": "typicode"
-  }
+  },
+  "raw_materials": [
+    {
+      "group_name": "Epoxy BPA novolac, type 7 (6)",
+      "rm_id": 37208,
+      "raw_material": "Precipitated Barium Sulphate CS-70A",
+      "aphla_group": "RPBC",
+      "manufacture": "LANXESS Deutschland GmbH"
+    },
+    {
+      "group_name": " ",
+      "rm_id": 140,
+      "raw_material": "Bayferrox Red 140 M",
+      "aphla_group": "RPGR",
+      "manufacture": "LLANXESS Deutschland GmbH"
+    },
+    {
+      "group_name": " ",
+      "rm_id": 37208,
+      "raw_material": "Precipitated Barium Sulphate CS-70A",
+      "aphla_group": "RPBC",
+      "manufacture": "LANXESS Deutschland GmbH"
+    },
+    {
+      "group_name": "Epoxy BPA novolac, type 7 (6)",
+      "rm_id": 37208,
+      "raw_material": "Precipitated Barium Sulphate CS-70A",
+      "aphla_group": "RPBC",
+      "manufacture": "LANXESS Deutschland GmbH"
+    },
+    {
+      "group_name": "Group 2 (12)",
+      "rm_id": 37208,
+      "raw_material": "Precipitated Barium Sulphate CS-70A",
+      "aphla_group": "RPBC",
+      "manufacture": "LANXESS Deutschland GmbH"
+    },
+    {
+      "group_name": "Group 2 (12)",
+      "rm_id": 37208,
+      "raw_material": "Precipitated Barium Sulphate CS-70A",
+      "aphla_group": "RPBC",
+      "manufacture": "LANXESS Deutschland GmbH"
+    }
+  ]
 }

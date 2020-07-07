@@ -49,9 +49,9 @@ import { RawMaterialComponent } from './raw-material/raw-material.component';
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     AppRoutingModule,
     HttpClientModule,
-    BrowserAnimationsModule,
     ToastrModule.forRoot(),
     MatTableModule,
     MatPaginatorModule,
