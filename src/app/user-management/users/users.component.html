@@ -10,17 +10,40 @@
           </div>
         </div>
       </div>
-      <div class="right-sub-header">
+      <div class="right-sub-header d-flex align-items-center">
         <mat-form-field class="search-filter" appearance="standard">
           <!-- <mat-label>Search Data</mat-label> -->
           <input matInput  #filter placeholder="Search Data" >
+        </mat-form-field>
+        <button class="edit-icon">
+            <img alt="no-image" src="../../assets/dactive.svg" alt="no-image">
+            <span class="edit-tooltip">Deactivate</span>
+        </button>
+        <button class="edit-icon">
+            <img alt="no-image" src="../../assets/editIcon.svg" alt="no-image">
+            <span class="edit-tooltip">Edit</span>
+        </button>
+        <button class="edit-icon bg-blue" (click)="openDialog()">
+            <img alt="no-image" src="../../assets/add-group.svg" alt="no-image">
+            <span class="edit-tooltip">AddUser</span>
+        </button>
+        <!-- <button class="deactive-btn"> Add New Group</button>
+        <button class="add-user">
+          <img src="../../assets/add-user.svg" alt="no-image">
+          Add New Material
+        </button> -->
+      </div>
+      <!-- <div class="right-sub-header">
+        <mat-form-field class="search-filter" appearance="standard">
+          <!-- <mat-label>Search Data</mat-label> -->
+          <!-- <input matInput  #filter placeholder="Search Data" >
         </mat-form-field>
         <button class="deactive-btn">Deactivate</button>
         <button class="add-user" (click)="openDialog()">
           <img src="../../assets/add-user.svg" alt="no-image">
           Add User
         </button>
-      </div>
+      </div> --> 
       
     </div>
     <div class="mat-elevation-z8 table-wrapper">
