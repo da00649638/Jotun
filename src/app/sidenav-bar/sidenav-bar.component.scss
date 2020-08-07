@@ -6,15 +6,19 @@
     padding: 37px 0 0;
     margin: 0;
     .sidebar-header{
-        padding: 0 30px 62px;
+        // padding: 0 30px 62px;
+        padding: 0 30px 35px;
         .logo{
             width: 100%;
         }
     }
     .side-innerwrapper{
-        height: calc(100vh - 150px);
-        height: -moz-calc(100vh - 150px);
-        height: -webkit-calc(100vh - 150px);
+        // height: calc(100vh - 150px);
+        // height: -moz-calc(100vh - 150px);
+        // height: -webkit-calc(100vh - 150px);
+        height: calc(100vh - 128px);
+        height: -moz-calc(100vh - 128px);
+        height: -webkit-calc(100vh - 128px);
         overflow-y: auto;
         .list-unstyled {
             margin: 0;
@@ -22,39 +26,63 @@
                 padding: 0 25px;
                 .main-list{
                     position: relative;
-                    &:after{
+                    li{
+                        margin-left: 20px;
+                    }
+                    .dropdown-toggle:before{
                         position: absolute;
                         content: '';
                         background-image: url('../../assets/user-grey.svg');
                         background-repeat: no-repeat;
                         background-size: contain;
-                        width: 12px;
-                        height: 12px;
-                        top: 17px;
+                        width: 19px;
+                        height: 19px;
+                        top: 13px;
+                        left: -3px;
+                    }
+                    .dropdown-toggle[aria-expanded="true"]::before{
+                        background-image: url('../../assets/userActive.svg');
                     }
                     &:nth-child(2){
-                        &::after{
+                       .dropdown-toggle::before{
                             background-image: url('../../assets/book-grey.svg');
+                        }
+                        .dropdown-toggle[aria-expanded="true"]::before{
+                            background-image: url('../../assets/book.svg');
                         }
                     }
                     &:nth-child(3){
-                        &::after{
+                        .dropdown-toggle::before{
                             background-image: url('../../assets/rawmaterial-grey.svg');
+                        }
+                        .dropdown-toggle[aria-expanded="true"]::before{
+                            background-image: url('../../assets/raw-material-Active.svg');
                         }
                     }
                     &:nth-child(4){
-                        &::after{
+                        .dropdown-toggle::before{
                             background-image: url('../../assets/pig-lib-grey.svg');
                         }
+                        .dropdown-toggle[aria-expanded="true"]::before{
+                            background-image: url('../../assets/schedule-active.svg');
+                        }
                     }
+                   
+                    
                     &:nth-child(5){
-                        &::after{
+                        .dropdown-toggle::before{
                             background-image: url('../../assets/for-cre-grey.svg');
+                        }
+                        .dropdown-toggle[aria-expanded="true"]::before{
+                            background-image: url('../../assets/comment-active.svg');
                         }
                     }
                     &:nth-child(6){
-                        &::after{
+                        .dropdown-toggle::before{
                             background-image: url('../../assets/rg-grey.svg');
+                        }
+                        .dropdown-toggle[aria-expanded="true"]::before{
+                            background-image: url('../../assets/setting-active.svg');
                         }
                     }
                 }
@@ -71,6 +99,7 @@
                     position: relative;
                     padding: 14px 0 14px 24px;
                     cursor: pointer;
+                 
                     &::after{
                         border: 0;
                         background-image: url('../../assets/sidenav-uparrow.svg');
@@ -85,13 +114,22 @@
                         transform: rotate(180deg);  
                     }
                     &[aria-expanded="true"]{
+                        opacity: 1;
                         &::after{
                             transform: rotate(0);  
                         }
+                        
                     }
                 }
                 .list-unstyled{
-                    li{
+                    a{
+                        font-size: 13px;
+                        opacity: 0.5;
+                        color: #fff;
+                        padding: 10px 0;
+                        display: block;
+                        padding-left: 24px;
+                        cursor: pointer;
                         position: relative;
                         &:after{
                             position: absolute;
@@ -103,15 +141,16 @@
                             width: 12px;
                             height: 12px;
                             top: 13px;
+                           
                         }
-                        a{
-                            font-size: 13px;
-                            opacity: 0.5;
-                            color: #fff;
-                            padding: 10px 0;
-                            display: block;
-                            padding-left: 24px;
-                            cursor: pointer;
+                        &:hover{
+                            text-decoration: none;
+                        }
+                        &.active-link{
+                            opacity: 1;
+                            &:after{
+                                background-image: url('../../assets/white-arrow.svg');
+                            }
                         }
                     }
                 }
@@ -120,7 +159,8 @@
     }
     
     .paint-img-block{
-        min-height: 300px;
+        // min-height: 300px;
+        min-height: 240px;
         background-image: url('../../assets/paint-pot.svg');
         background-repeat: no-repeat;
         background-size: cover;

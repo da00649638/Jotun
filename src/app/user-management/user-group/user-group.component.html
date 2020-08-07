@@ -1,0 +1,171 @@
+<div class="container">
+    <div class="sub-header-wrap d-flex justify-content-between" >
+      <div class="sub-header">
+        <div class="left-subheader d-flex flex-column">
+            <h4>User Management</h4>
+            <div class="sub-head-title d-flex">
+              <img src="../../assets/home-icon.svg" alt="no-image">
+              <span class="separator">/</span>
+              <span>Access Management </span>
+              <span class="separator">/</span>
+              <span>User Group</span>
+            </div>
+        </div>
+      </div>
+      <div class="right-sub-header d-flex align-items-center"  *ngIf="!enableSearch">
+
+        <!-- <button class="edit-icon" (click)="searchEnable()" >
+          <img alt="no-image" src="../../assets/blueSearch.svg">
+          <span class="edit-tooltip">Search</span>
+        </button> -->
+        <!-- deactivate button not present in user group- screen-->
+        <!-- <button class="edit-icon" (click)="changeStatus()" [disabled]="deactivateIcon" [ngClass]="deactivateIcon ? 'disabled' : ''">
+            <img alt="no-image" src="../../assets/dactive.svg" alt="no-image" >
+            <span class="edit-tooltip">Deactivate</span>
+        </button> -->
+        <button class="edit-icon" (click)="openEditDialog()" [disabled]="editIcon" [ngClass]="editIcon ? 'disabled' : ''">
+            <img alt="no-image" src="../../assets/editIcon.svg" alt="no-image"  >
+            <span class="edit-tooltip">Edit</span>
+        </button>
+        <button class="edit-icon bg-blue" (click)="openDialog()">
+            <img alt="no-image" src="../../assets/add-user-group.png" alt="no-image">
+            <span class="edit-tooltip">Add User Group</span>
+        </button>
+        <!-- <button class="deactive-btn"> Add New Group</button>
+        <button class="add-user">
+          <img src="../../assets/add-user.svg" alt="no-image">
+          Add New Material
+        </button> -->
+      </div>
+      <!-- <div class="right-sub-header">
+        <mat-form-field class="search-filter" appearance="standard">
+          <mat-label>Search Data</mat-label>
+          <input matInput  #filter placeholder="Search Data" >
+        </mat-form-field>
+        <button class="deactive-btn">Deactivate</button>
+        <button class="add-user" (click)="openDialog()">
+          <img src="../../assets/add-user.svg" alt="no-image">
+          Add User
+        </button>
+      </div> -->
+
+    </div>
+    <!-- for usergroup search please enable below code -->
+    <!-- <div class="search-wrapper " *ngIf="enableSearch">
+      <div class="search-inner-wrap d-flex justify-content-between">
+          <div class="search-field-block d-flex flex-column">
+            <label>User Group </label>
+            <mat-form-field appearance="none">
+              <mat-select  [(ngModel)]="usergroup">
+                <mat-option *ngFor="let option of usergroups" [value]="option.id">
+                  {{option.usergroup_name}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div class="search-field-block d-flex flex-column">
+            <label>Select Country </label>
+            <mat-form-field appearance="none">
+              <mat-select [(ngModel)]="country">
+                <mat-option *ngFor="let option of countries" [value]="option.id">
+                  {{option.name}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div class="search-field-block d-flex flex-column">
+            <label>Access Level</label>
+            <mat-form-field appearance="none">
+              <mat-select [(ngModel)]="access_levels">
+                <mat-option value="Interior">Interior</mat-option>
+                <mat-option value="Exterior">Exterior</mat-option>
+                <mat-option value="Function">Function</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div class="search-field-block d-flex flex-column">
+            <label>Status</label>
+            <mat-radio-group aria-label="Select an option d-flex justify-content-between" [(ngModel)]="status">
+              <mat-radio-button value="true">Active</mat-radio-button>
+              <mat-radio-button value="false">Inactive</mat-radio-button>
+            </mat-radio-group>
+          </div>
+      </div>
+      <div class="search-btn d-flex justify-content-end">
+        <button  (click)="searchEnable()">Cancel</button>
+        <button (click)="search()">Search</button>
+      </div>
+
+    </div> -->
+    <div class="mat-elevation-z8 table-wrapper">
+        <table mat-table [dataSource]="dataSource" matSort  class="table-container">
+
+            <ng-container matColumnDef="select">
+                <th mat-header-cell *matHeaderCellDef>
+                  <!-- <mat-checkbox (change)="$event ? masterToggle() : null"
+                                [checked]="selection && selection.hasValue() && isAllSelected()"
+                                [indeterminate]="selection && selection.hasValue() && !isAllSelected()">
+                  </mat-checkbox> -->
+                </th>
+                <td mat-cell *matCellDef="let row">
+                  <mat-checkbox (click)="$event.stopPropagation()"
+                                (change)="$event ? onSelect(row) : null"
+                                [checked]="selection.isSelected(row)">
+                  </mat-checkbox>
+                </td>
+              </ng-container>
+
+          <!-- User Group Column -->
+          <ng-container matColumnDef="usergroup_name">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> User Group </th>
+            <td mat-cell  *matCellDef="let element"> {{element.usergroup_name}} </td>
+          </ng-container>
+
+          <!-- Country Column -->
+          <ng-container matColumnDef="countryName">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Country </th>
+            <td mat-cell  *matCellDef="let element"> {{element.countryName}} </td>
+          </ng-container>
+
+          <!-- Access Levels Column -->
+          <ng-container matColumnDef="access_levels">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Access Levels </th>
+            <td mat-cell  *matCellDef="let element"> {{element.access_level}} </td>
+          </ng-container>
+
+          <!-- Status Column -->
+          <ng-container matColumnDef="active_status">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Status </th>
+            <td mat-cell *matCellDef="let element">
+              <div  class="d-flex align-items-center">
+                <span [ngClass]="element.active_status ? 'user-active' : 'user-inactive'"></span>{{element.active_status?"Active":"Inactive"}}
+              </div>
+
+            </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+        <div class="example-no-results"
+          [style.display]="dataSource && dataSource.filteredData && dataSource.filteredData.length == 0 ? '' : 'none'">
+          No user groups found matching filter.
+        </div>
+        <mat-paginator style-paginator class="paginator-container" *ngIf="paginationView"
+          [showTotalPages]="5"
+          [length]="length"
+          [pageSize]="pageSize"
+          [pageIndex]="pageIndex"
+          [pageSizeOptions]="pageSizeOptions"
+          (pageChange)="nextPageChange($event)"
+          (page)="changePageSize($event)" >
+        </mat-paginator>
+
+
+
+
+
+        <!-- (page)="handlePage($event)" (pageChange)="nextPageChange($event) [pageSizeOptions]="pageSizeOptions" -->
+      </div>
+      <ngx-spinner></ngx-spinner>
+  </div>

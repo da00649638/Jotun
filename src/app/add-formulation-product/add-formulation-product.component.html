@@ -1,0 +1,269 @@
+<div class="page-container-block">
+    <div class="sub-header-wrap d-flex justify-content-between" >
+      <div class="sub-header">
+        <div class="left-subheader d-flex flex-column">
+          <h4>Formulation Creation</h4>
+          <div class="sub-head-title d-flex">
+            <img src="../../assets/home-icon.svg" alt="no-image">
+            <span class="separator">/</span>
+            <span> Formulation Creation  </span>
+            <span class="separator">/</span>
+            <span> Add New Product  </span>
+          </div>
+        </div>
+      </div>
+      <div class="right-sub-header d-flex align-items-center">
+        <button class="edit-icon">
+          <img alt="no-image" src="../../assets/squareDots.svg">
+          <span class="edit-tooltip">Manage</span>
+        </button>
+        <button class="edit-icon" >
+          <img alt="no-image" src="../../assets/importIcon.svg">
+          <span class="edit-tooltip">Export</span>
+        </button>
+        <button class="edit-icon">
+            <img alt="no-image" src="../../assets/print.svg">
+            <span class="edit-tooltip">Print</span>
+          </button>
+          <button class="edit-icon bg-blue" >
+            <img alt="no-image" src="../../assets/saveIcon.svg">
+            <span class="edit-tooltip">Save As</span>
+          </button>
+      </div>
+    </div>
+    <div class="section-container d-flex">
+        <div class="side-menu-wrap">
+            <span>+ Add Product</span>
+            <div class="side-fields-block">
+                <div class="content-outer-wrap " *ngFor="let item of addProductArr">
+                    <div class="content-wrap d-flex justify-content-between">
+                        <div class="content-left d-flex">
+                            <img src="../../assets/sixDots.svg" alt="noImage" class="grey-dots">
+                            <img src="../../assets/sixWhiteDots.svg" alt="noImage" class="white-dots">
+                            <span class="text">{{item.name}}</span>
+                        </div>
+                        <img src="../../assets/dimensions.svg" alt="noImage" class="dimensionsIcon">
+                        <img src="../../assets/dimensionsWhite.svg" alt="noImage" class="WhitedimensionsIcon">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="right-form-container">
+            <form #productForm = "ngForm" novalidate (ngSubmit)="productForm.form.valid && lockProductData(productForm.value)">
+                <div class="form-separator d-flex" >
+                    <div class="form-group">
+                        <div class="search-wrap">
+                            <span class="input-label ">Enter Name of Product</span>
+                        </div>
+                        <mat-form-field class="example-full-width" appearance="default">
+                            <input matInput   
+                                placeholder="Enter Group Name"                      
+                                #productName = 'ngModel'
+                                required 
+                                name='productName'
+                                [(ngModel)]='productDetailsObj.productName'
+                                [ngClass]="{'is-invalid': productForm.submitted && productName.invalid }"
+                                ng-pattern="/^[0-9]*$/">
+                        
+                        </mat-form-field>
+                        <mat-error *ngIf="productForm.submitted || (productName?.invalid && (productName.dirty || productName.touched))">
+                            <div *ngIf="productName.errors" class="error-msg">
+                                Please enter Group Name
+                            </div>
+                        </mat-error>
+                    </div>
+                    <div class="form-group">
+                        <div class="search-wrap">
+                            <span class="input-label ">Select product to copy</span>
+                        </div>
+                        <mat-form-field appearance="none" >
+                            <mat-select matInput
+                                placeholder="Select Pigment Group" 
+                                #productCopy = 'ngModel'
+                                name='productCopy'
+                                [(ngModel)]='productDetailsObj.productCopy'
+                                [ngClass]="{'is-invalid': productForm.submitted && productCopy.invalid }">
+                                
+                                <mat-option *ngFor="let option of productCopyOptions; let i = index" [value]="option.id">
+                                    <div class="option-wrap d-flex">
+                                        <span>Jotun Facade - {{option.name}}</span>
+                                    </div>
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                    <div class="status-wrap">
+                        <div class="form-group d-flex  align-items-center">
+                            <div class="search-wrap">
+                                <span class="input-label d-flex"><img src="../../assets/filterIcon.svg">status :</span>
+                            </div>
+                            <mat-form-field appearance="none" >
+                                <mat-select matInput
+                                    placeholder="Drafts" 
+                                    #status = 'ngModel'
+                                    name='status'
+                                    [(ngModel)]='productDetailsObj.status'
+                                    [ngClass]="{'is-invalid': productForm.submitted && productCopy.invalid }">
+                                    
+                                    <mat-option *ngFor="let option of productCopyOptions; let i = index" [value]="option.id">
+                                        <div class="option-wrap d-flex">
+                                            <span>Jotun Facade - {{option |json}}</span>
+                                        </div>
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                        <div class="product-is-wrap d-flex justify-content-between align-items-center">
+                            <div class="d-flex flex-wrap">
+                                <span>Product ID:—	</span>
+                                <span>Standard ID: —</span>
+                                <span>Version: 1.0</span>
+                            </div>
+                           
+                            <div class="right-sub-header d-flex">
+                                <button class="edit-icon">
+                                    <img alt="no-image" src="../../assets/editIcon.svg">
+                                    <span class="edit-tooltip">Edit</span>
+                                  </button>
+                                  <button class="edit-icon">
+                                    <img alt="no-image" src="../../assets/lockIcon.svg">
+                                    <span class="edit-tooltip"> L. Higs</span>
+                                  </button>
+                            </div>
+                            
+                        </div>
+                    </div>
+                </div>
+                <div class="form-separator d-flex flex-wrap">
+                    <div class="form-group">
+                        <div class="search-wrap">
+                            <span class="input-label ">Colour</span>
+                        </div>
+                        <mat-form-field appearance="none" >
+                            <mat-select matInput
+                                placeholder="Select Pigment Group" 
+                                #color = 'ngModel'
+                                name='color'
+                                [(ngModel)]='productDetailsObj.color'
+                                [ngClass]="{'is-invalid': productForm.submitted && color.invalid }">
+                                
+                                <mat-option *ngFor="let option of colorOptions; let i = index" [value]="option.id" >
+                                    <div class="option-wrap d-flex">
+                                        <span>{{option.name}}</span>
+                                    </div>
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                    <div class="form-group">
+                        <div class="search-wrap">
+                            <span class="input-label ">Colour Group</span>
+                        </div>
+                        <mat-form-field appearance="none" >
+                            <mat-select matInput
+                                placeholder="Select Pigment Group" 
+                                #colorGroup = 'ngModel'
+                                name='colorGroup'
+                                [(ngModel)]='productDetailsObj.colorGroup'
+                                [ngClass]="{'is-invalid': productForm.submitted && colorGroup.invalid }">
+                                
+                                <mat-option *ngFor="let option of colorGroupOptions; let i = index" [value]="option.id" >
+                                    <div class="option-wrap d-flex">
+                                        <span>{{option.name}}</span>
+                                    </div>
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                    <div class="form-group">
+                        <div class="search-wrap">
+                            <span class="input-label ">Total Binder</span>
+                        </div>
+                        <mat-form-field class="example-full-width" appearance="default">
+                            <input matInput   
+                                placeholder="Enter Group Name"                      
+                                #totalBinder = 'ngModel'
+                                required 
+                                name='totalBinder'
+                                [(ngModel)]='productDetailsObj.totalBinder'
+                                [ngClass]="{'is-invalid': productForm.submitted && totalBinder.invalid }"
+                                ng-pattern="/^[0-9]*$/">
+                        
+                        </mat-form-field>
+                        <mat-error *ngIf="productForm.submitted || (totalBinder?.invalid && (totalBinder.dirty || productName.touched))">
+                            <div *ngIf="totalBinder.errors" class="error-msg">
+                                Please enter Total Binder
+                            </div>
+                        </mat-error>
+                    </div>
+                </div>
+                <div class="form-separator">
+                    <div class="form-group">
+                        <div class="search-wrap">
+                            <span class="input-label ">Scalling Factor</span>
+                        </div>
+                        <mat-form-field class="example-full-width" appearance="default">
+                            <input matInput   
+                                placeholder="Enter Group Name"                      
+                                #scallingFactor = 'ngModel'
+                                required 
+                                name='scallingFactor'
+                                [(ngModel)]='productDetailsObj.scallingFactor'
+                                [ngClass]="{'is-invalid': productForm.submitted && scallingFactor.invalid }"
+                                ng-pattern="/^[0-9]*$/">
+                        
+                        </mat-form-field>
+                        <mat-error *ngIf="productForm.submitted || (scallingFactor?.invalid && (scallingFactor.dirty || productName.touched))">
+                            <div *ngIf="scallingFactor.errors" class="error-msg">
+                                Please enter Scalling Factor
+                            </div>
+                        </mat-error>
+                    </div>
+                    <span><strong>Note:</strong>Each component should be milled and sleeved separately</span>
+                </div>
+            </form>
+            <div class="manage-section d-flex align-items-center justify-content-center" *ngIf="!hideProcessSteps">
+                <div class="manage-block d-flex flex-column align-items-center justify-content-center">
+                    <button (click)="openProcessSteps()">Manage</button>
+                    <span>Click here to manage and add sections</span>
+                </div>
+            </div>
+            <div class="manage-process-stpes" *ngIf="hideProcessSteps">
+                <div class="d-flex align-items-center justify-content-end">
+                    <button class="add-process-btn">+ Add  Process Step</button>
+                </div>
+                <div class="add-process-steps-accordion">
+                    <mat-accordion>
+                        <mat-expansion-panel hideToggle *ngFor="let item of processStepsArr">
+                          <mat-expansion-panel-header>
+                            <mat-panel-title>
+                                <div class="panel-head d-flex align-items-center justify-content-between">
+                                    <div class="panel-text d-flex align-items-center">
+                                        <img src="../../assets/sixDots.svg" alt="no-image">
+                                        <span>{{item.name}}</span>
+                                    </div>
+                                    <img src="../../assets/downArrow.svg" alt="no-image">
+                                </div>
+                                
+                            </mat-panel-title>
+                            </mat-expansion-panel-header>
+                        </mat-expansion-panel>
+                    </mat-accordion>
+                    <div class="products-docs">
+                        <div class="products-wrap d-flex justify-content-between">
+                            <span>Product Docs</span>
+                            <div class="product-attachement">
+                                <input type="file">
+                                <span>Attach File</span>
+                            </div>
+                        </div>
+                        <button class="selected-file">Product Approval<img src="../../assets/close-icon.svg"></button>
+                        <button class="selected-file">Aurora<img src="../../assets/close-icon.svg"></button>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+</div>

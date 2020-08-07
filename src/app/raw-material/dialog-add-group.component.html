@@ -1,0 +1,42 @@
+<div class="adduser-dialog-container">
+    <div class="adduser-title d-flex justify-content-between align-items-center">
+        <h3>Add New Group</h3>
+        <img alt="no-image" src="../../assets/close-icon.svg" [mat-dialog-close]="true" type="button">
+    </div>
+    <form #groupForm = "ngForm" novalidate (ngSubmit)="groupForm.form.valid && saveRawMaterialGroup()" class="dialog-section-wrapper">
+        <div class="form-group">
+            <div class="search-wrap">
+                <span class="input-label">Enter Enter Group Name</span>
+            </div>
+            <mat-form-field class="example-full-width group-search" appearance="default">
+                <input matInput   
+                    placeholder="Enter group name"                      
+                    #typeGroup = 'ngModel'
+                    required 
+                    name='typeGroup'
+                    [(ngModel)]='groupname'
+                    [ngClass]="{'is-invalid': groupForm.submitted && typeGroup.invalid }"
+                    ng-pattern="/^[0-9]*$/">
+               
+                </mat-form-field>
+                <mat-error *ngIf="groupForm.submitted || (typeGroup?.invalid && (typeGroup.dirty || typeGroup.touched))">
+                    <div *ngIf="typeGroup.errors" class="error-msg">
+                        Enter Group Name
+                    </div>
+                </mat-error>
+        </div>
+        <div class="form-group">
+            <div class="search-wrap">
+                <span class="input-label">Type of Group </span>
+            </div>
+            <mat-radio-group required aria-label="Select an option" class="d-flex flex-column" [(ngModel)]='grouptype' [ngModelOptions]="{standalone: true}">
+                <mat-radio-button value="PigmentationGroup" >Pigmentation Group</mat-radio-button>
+                <mat-radio-button value="RMGroup">RM Group</mat-radio-button>
+            </mat-radio-group>
+        </div>
+        <div class="button-wrap d-flex justify-content-end">
+            <button class="cancel-btn" type="button" [mat-dialog-close]="true">Cancel</button>
+            <button class="add-user" type="submit" >Save</button>
+        </div>
+    </form>
+</div>

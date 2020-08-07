@@ -1,0 +1,37 @@
+<div class="adduser-dialog-container">
+  <div class="adduser-title d-flex justify-content-between align-items-center">
+      <h3>View - {{localRawMaterial}}</h3>
+      <img alt="no-image" src="../../assets/close-icon.svg" [mat-dialog-close]="true" type="button">
+  </div>
+  <form class="dialog-section-wrapper">
+        <div class="search-wrap">
+          <span class="input-label">Selected Raw Material </span>
+          <br>
+          {{localRawMaterial}}
+        </div>
+        <br>
+
+        <div class="roles-wrap selection-wrap">
+          <div class="search-wrap">
+            <span class="roles-label">Presence in Handbook </span>
+          </div>
+            <mat-tab-group (selectedTabChange)="changeTabData($event)">
+              <mat-tab label={{tab.text}} *ngFor="let tab of tabs; let index = index">
+                <br>
+                <div class="treeview-container">
+                  <ngx-treeview [config]="config" [items]="items" (click)="onSelectedChange(items,index)"
+                    (filterChange)="onFilterChange($event)">
+                  </ngx-treeview>
+                </div>
+              </mat-tab>
+            </mat-tab-group>
+
+        </div>
+
+        <div class="button-wrap d-flex justify-content-end">
+          <button class="cancel-btn" type="button" [mat-dialog-close]="true">Cancel</button>
+        </div>
+
+  </form>
+
+</div>

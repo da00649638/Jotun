@@ -1,0 +1,44 @@
+<div class="adduser-dialog-container">
+    <div class="adduser-title d-flex justify-content-between align-items-center">
+        <h3 >View</h3>
+        <img alt="no-image" src="../../assets/close-icon.svg" [mat-dialog-close]="true" type="button">
+    </div>
+    <div class="dialog-section-wrapper">
+        <div class="form-group" >
+            <div class="search-wrap">
+                <span class="input-label">Selected Colour</span>
+            </div>
+            <mat-form-field appearance="none" >
+                <input disabled
+                    matInput 
+                    placeholder="Selected colour"
+                    #SelectedColor = 'ngModel'
+                    required 
+                    name='selectedColor'
+                    [(ngModel)]='selectedColor'
+                   >
+            </mat-form-field>
+            <!-- <mat-error *ngIf="basicForm.submitted || (colorName?.invalid && (colorName.dirty || colorName.touched))">
+                <div *ngIf="colorName.errors" class="error-msg">
+                    Please Enter Group Name
+                </div>
+            </mat-error> -->
+           
+        </div>
+        <div class="tab-wrapper ">
+            <span class="roles-title">Presence in Handbook</span>
+            <mat-tab-group (selectedTabChange)="changeTabData($event)">
+              <mat-tab label={{tab.text}} *ngFor="let tab of tabs; let index = index">
+                <div class="treeview-container">
+                  <ngx-treeview [config]="config" [items]="items" (click)="onSelectedChange(items,index)"
+                    (filterChange)="onFilterChange($event)">
+                  </ngx-treeview>
+                </div>
+              </mat-tab>
+            </mat-tab-group>
+          </div>
+          <div class="button-wrap d-flex justify-content-end">
+            <button class="cancel-btn" type="button" [mat-dialog-close]="true">Cancel</button>
+        </div>
+    </div>
+</div>

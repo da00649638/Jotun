@@ -7,25 +7,34 @@ import {
     Renderer2,
     Self,
     ViewContainerRef,
-    Input
+    Input, Output , EventEmitter
   } from '@angular/core';
 import { MatPaginator } from '@angular/material';
 @Directive({
+// tslint:disable-next-line:directive-selector
 selector: '[style-paginator]'
 })
 export class StylePaginatorDirective {
+// tslint:disable-next-line:variable-name
 private _currentPage = 1;
+// tslint:disable-next-line:variable-name
 private _pageGapTxt = '...';
+// tslint:disable-next-line:variable-name
 private _rangeStart;
+// tslint:disable-next-line:variable-name
 private _rangeEnd;
+// tslint:disable-next-line:variable-name
 private _buttons = [];
 
 @Input()
 
 get showTotalPages(): number { return this._showTotalPages; }
 set showTotalPages(value: number) {
-    this._showTotalPages = value % 2 == 0 ? value + 1 : value;
+  this._showTotalPages = value % 2 == 0 ? value + 1 : value;
 }
+
+@Output() pageChange = new EventEmitter<number>();
+// tslint:disable-next-line:variable-name
 private _showTotalPages = 2;
 
 constructor(
@@ -33,10 +42,10 @@ constructor(
     private vr: ViewContainerRef,
     private ren: Renderer2
 ) {
-    //Sub to rerender buttons when next page and last page is used
-    this.matPag.page.subscribe((v)=>{
+    // Sub to rerender buttons when next page and last page is used
+    this.matPag.page.subscribe((v) => {
     this.switchPage(v.pageIndex);
-    })
+    });
 }
 
 private buildPageNumbers() {
@@ -62,6 +71,7 @@ private buildPageNumbers() {
     const nodeArray = this.vr.element.nativeElement.childNodes[0].childNodes[0]
         .childNodes[2].childNodes;
     setTimeout(() => {
+        // tslint:disable-next-line:prefer-for-of
         for (let i = 0; i < nodeArray.length; i++) {
         if (nodeArray[i].nodeName === 'BUTTON') {
             if (nodeArray[i].disabled) {
@@ -79,7 +89,7 @@ private buildPageNumbers() {
                 'rgba(255, 0, 0, 1)'
             );
             this.ren.setStyle(nodeArray[i], 'color', 'white');
-            this.ren.setStyle(nodeArray[i], 'margin', '.5%');             
+            this.ren.setStyle(nodeArray[i], 'margin', '.5%');
             }
         }
         }
@@ -150,11 +160,13 @@ private initPageRange(): void {
 }
 
 private switchPage(i: number): void {
-    this._currentPage = i;
-    this.matPag.pageIndex = i;
-    this.initPageRange();
+  this.pageChange.emit(i);
+  this._currentPage = i;
+  this.matPag.pageIndex = i;
+  this.initPageRange();
 }
 
+// tslint:disable-next-line:use-lifecycle-interface
 public ngAfterViewInit() {
     this.initPageRange();
 }

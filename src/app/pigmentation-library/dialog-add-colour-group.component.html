@@ -1,0 +1,33 @@
+<div class="adduser-dialog-container">
+    <div class="adduser-title d-flex justify-content-between align-items-center">
+        <h3>Add New Group</h3>
+        <img alt="no-image" src="../../assets/close-icon.svg" (click)='closeDialog()' type="button">
+    </div>
+    <form #groupForm = "ngForm" novalidate (ngSubmit)="groupForm.form.valid && saveGroup(groupForm.value)" class="dialog-section-wrapper">
+        <div class="form-group">
+            <div class="search-wrap">
+                <span class="input-label">Enter Group Name</span>
+            </div>
+            <mat-form-field class="example-full-width" appearance="default">
+                <input matInput   
+                    placeholder="Enter Group Name"                      
+                    #typeGroup = 'ngModel'
+                    required 
+                    name='typeGroup'
+                    [(ngModel)]='newGroup.groupName'
+                    [ngClass]="{'is-invalid': groupForm.submitted && typeGroup.invalid }"
+                    ng-pattern="/^[0-9]*$/">
+               
+            </mat-form-field>
+            <mat-error *ngIf="groupForm.submitted || (typeGroup?.invalid && (typeGroup.dirty || typeGroup.touched))">
+                <div *ngIf="typeGroup.errors" class="error-msg">
+                    Please enter Group Name
+                </div>
+            </mat-error>
+        </div>
+        <div class="button-wrap d-flex justify-content-end">
+            <button class="cancel-btn" type="button" (click)='closeDialog()'>Cancel</button>
+            <button class="add-user" type="submit" >Save</button>
+        </div>
+    </form>
+</div>

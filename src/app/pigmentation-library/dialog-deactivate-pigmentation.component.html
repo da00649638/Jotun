@@ -1,0 +1,30 @@
+<div class="adduser-dialog-container">
+    <div class="adduser-title d-flex justify-content-between align-items-center">
+        <h3>Deactivate</h3>
+    </div>
+  
+    <img alt="no-image" src="../../assets/warning-24.png" alt="no-image"
+       style="position: relative;left: 42%;padding: 40px 0px 0px;">
+    <br>
+      <p *ngIf='this.local_data.active_status' style="padding:45px 20px 20px;">
+        {{local_id}}({{local_name}}) colour
+        is not currently at use and can be Deactivated.
+        <br>
+        Are you sure you want to deactivate ?
+      </p>
+  
+      <p *ngIf='!this.local_data.active_status' style="padding:45px 20px 20px;">
+        {{local_id}}({{local_name}}) colour
+        is not currently at use and can be Activated.
+        <br>
+        Are you sure you want to activate ?
+      </p>
+  
+    <div class="button-wrap d-flex justify-content-center">
+      <button class="cancel-btn" type="button" [mat-dialog-close]="true">Cancel</button>
+      <button class="add-user" type="submit" (click)="changeStatus()">Confirm</button>
+    </div>
+  
+  
+  </div>
+  

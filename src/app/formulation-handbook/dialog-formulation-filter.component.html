@@ -1,0 +1,63 @@
+<div class="adduser-dialog-container">
+    <div class="adduser-title d-flex justify-content-between align-items-center">
+        <h3>Filter</h3>
+        <img alt="no-image" src="../../assets/close-icon.svg" [mat-dialog-close]="true" type="button">
+    </div>
+    <div class="dialog-section-wrapper">
+        <form #filter = "ngForm" novalidate (ngSubmit)="filter.form.valid && applyFilter(filter.value)">
+            <div class="form-group">
+                <div class="search-wrap">
+                    <span class="input-label">Search</span>
+                </div>
+                <mat-form-field class="example-full-width filter-search" appearance="default">
+                    <input matInput   
+                        placeholder="Enter Group Name"                      
+                        #search = 'ngModel'
+                        required 
+                        name='filterSearch'
+                        [(ngModel)]='filterSearch'
+                        [ngClass]="{'is-invalid': filter.submitted && search.invalid }"
+                        ng-pattern="/^[0-9]*$/">
+                   
+                </mat-form-field>
+                <mat-error *ngIf="filter.submitted || (search?.invalid && (search.dirty || search.touched))">
+                    <div *ngIf="search.errors" class="error-msg">
+                        Please enter Search Field
+                    </div>
+                </mat-error>
+            </div>
+            <div class="form-group">
+                <div class="tab-wrapper">
+                    <mat-tab-group>
+                        <mat-tab label="Interior">
+                            <div class="checkbox-container">
+                                <div class="main-checkbox-wrapper">
+                                    <mat-checkbox class="example-margin">Handbooks</mat-checkbox>
+                                    <mat-checkbox class="example-margin">Drafts</mat-checkbox>
+                                    <mat-checkbox class="example-margin">Archieve</mat-checkbox>
+                                </div>
+                                <div class="checkbox-wrap d-flex flex-wrap">
+                                    <mat-checkbox class="example-margin">By Owner</mat-checkbox>
+                                    <mat-checkbox class="example-margin">By Time stamp</mat-checkbox>
+                                    <mat-checkbox class="example-margin">By Product Category</mat-checkbox>
+                                    <mat-checkbox class="example-margin">By Product Information</mat-checkbox>
+                                    <mat-checkbox class="example-margin">By Product Name</mat-checkbox>
+                                    <mat-checkbox class="example-margin">By Product ID</mat-checkbox>
+                                    <mat-checkbox class="example-margin">By Product Code</mat-checkbox>
+                                    <mat-checkbox class="example-margin">By Product Name ID</mat-checkbox>
+                                    <mat-checkbox class="example-margin">By Formulation Responsible</mat-checkbox>
+                                </div>
+                            </div>
+                        </mat-tab>
+                        <mat-tab label="Exterior">Content2</mat-tab>
+                        <mat-tab label="Functional">Content3</mat-tab>
+                    </mat-tab-group>
+                </div>
+            </div>
+            <div  class="button-wrap d-flex justify-content-end">
+                <button  class="cancel-btn" type="button" [mat-dialog-close]="true" >Clear</button>
+                <button  class="add-user" type="submit">Apply</button>
+            </div>
+        </form>
+    </div>
+</div>

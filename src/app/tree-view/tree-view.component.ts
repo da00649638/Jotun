@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { TreeModel } from 'ng2-tree';
+import { UsersServiceService } from '../services/users-service.service';
 
 @Component({
   selector: 'app-tree-view',
@@ -8,24 +8,42 @@ import { TreeModel } from 'ng2-tree';
 })
 
 export class TreeViewComponent implements OnInit {
+  treeData: any;
 
-  public tree: TreeModel = {
-    value: 'Programming languages by programming paradigm',
-    children: [
-      {
-        value: 'Object-oriented programming',
-        children: [{ value: 'Java' }, { value: 'C++' }, { value: 'C#' }]
-      },
-      {
-        value: 'Prototype-based programming',
-        children: [{ value: 'JavaScript' }, { value: 'CoffeeScript' }, { value: 'Lua' }]
-      }
-    ]
-  };
-
-  constructor() { }
-
-  ngOnInit() {
+  constructor(private usersServiceService: UsersServiceService) {
   }
+  ngOnInit() {
+    this.usersServiceService.getUserGroupTreeData().subscribe(res => {
+     this.treeData = res.data;
+  });
+  }
+
+
+treeNodeSelection(parentObj, chkType, chkevent) {
+  if (parentObj.children && parentObj.children.length > 0 ) {
+    parentObj.children.forEach((level1Arry) => {
+     this.checkSelectedNode(level1Arry, parentObj, chkType, chkevent);
+     if (level1Arry.children && level1Arry.children.length > 0) {
+        level1Arry.children.forEach(level2Arry => {
+          this.checkSelectedNode(level2Arry, level1Arry, chkType, chkevent);
+          if (level2Arry.children && level2Arry.children.length > 0) {
+            level2Arry.children.forEach(level3Arry => {
+              this.checkSelectedNode(level3Arry, level2Arry, chkType, chkevent);
+            });
+          }
+        });
+    }
+   });
+  }
+
+ }
+
+checkSelectedNode(parentObj, levelObj, chkType, chkevent) {
+  parentObj[chkType] = levelObj[chkType];
+  // if (chkType === 'write' && chkevent) {
+  //  parentObj.read = true;
+   // levelObj.read = true;
+ // }
+}
 
 }

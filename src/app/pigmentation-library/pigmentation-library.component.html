@@ -1,0 +1,197 @@
+<div class="page-container-block">
+  <div class="sub-header-wrap d-flex justify-content-between" >
+    <div class="sub-header">
+      <div class="left-subheader d-flex flex-column">
+        <h4>Pigmentation Library</h4>
+        <div class="sub-head-title d-flex">
+          <img src="../../assets/home-icon.svg" alt="no-image">
+          <span class="separator">/</span>
+          <span>Pigmentation Library  </span>
+        </div>
+      </div>
+    </div>
+    <div class="right-sub-header d-flex align-items-center">
+        <!-- <button class="edit-icon" >
+          <img alt="no-image" src="../../assets/blueSearch.svg">
+          <span class="edit-tooltip">Search</span>
+        </button> -->
+      
+        <button class="edit-icon" [disabled]="viewIcon" [ngClass]="viewIcon ? 'disabled' : ''" (click)="openViewPigmentationDialog()">
+          <img alt="no-image" src="../../assets/view.svg">
+          <span class="edit-tooltip">View</span>
+        </button>
+        <button class="edit-icon" (click)="confirmDeactivateDialog()" [disabled]="deactivateIcon" [ngClass]="deactivateIcon ? 'disabled' : ''">
+          <img alt="no-image" src="../../assets/dactive.svg">
+          <span class="edit-tooltip">Change Status</span>
+        </button>
+        <button class="edit-icon" [disabled]="editIcon" [ngClass]="editIcon ? 'disabled' : ''" (click)="openEditPigmentationDialog()" >
+          <img alt="no-image" src="../../assets/editIcon.svg">
+          <span class="edit-tooltip">Edit</span>
+      </button>
+        <button class="edit-icon bg-blue" (click)="openAddPigmentationDialog()" >
+          <img alt="no-image" src="../../assets/new-colour-group.svg" >
+          <span class="edit-tooltip">Add New Pigmentation</span>
+      </button>
+     
+    </div>
+    
+  </div>
+  <div class="mat-elevation-z8 table-wrapper">
+    
+      <table mat-table multiTemplateDataRows [dataSource]="dataSource" matSort  class="table-container pigmentation-table">
+        <ng-container matColumnDef="select">
+          <th mat-header-cell *matHeaderCellDef>
+            <!-- <mat-checkbox (change)="$event ? masterParentToggle() : null"
+                          [checked]="parentSelection.hasValue() && isAllParentSelected()"
+                          [indeterminate]="parentSelection.hasValue() && !isAllParentSelected()">
+            </mat-checkbox> -->
+          </th>
+          <td mat-cell *matCellDef="let row">
+            <div class="d-flex align-items-center">
+              <!-- <mat-checkbox (click)="$event.stopPropagation()"
+                (change)="$event ? onSelectParent(row) : null"
+                [checked]="parentSelection.isSelected(row)">
+              </mat-checkbox> -->
+              <img src="../../assets/downArrow.svg" class="down-arrow" alt="no-image">
+            </div>
+            
+          </td>
+        </ng-container>
+          <ng-container matColumnDef="color_group">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Colour Group </th>
+              <td mat-cell *matCellDef="let element">{{element.color_group | removeSpecialChar}}</td>
+          </ng-container>  
+  
+          <ng-container matColumnDef="expandedDetail" >
+              <td mat-cell *matCellDef="let element ; let i = dataIndex;" [attr.colspan]="displayedColumns.length">
+              <div class="example-element-detail" *ngIf="element.children?.data.length" [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
+                  <div class="inner-table mat-elevation-z8" *ngIf="expandedElement">
+                      <table #innerTables mat-table #innerSort="matSort" [dataSource]="element.children" matSort>
+                        <ng-container matColumnDef="select">
+                          <th mat-header-cell *matHeaderCellDef>
+                            <!-- <mat-checkbox (change)="$event ? masterToggle(element,i) : null"
+                                          (click)="$event.stopPropagation()"
+                                          [checked]="selection[i].hasValue() && isAllSelectedEle(element, i)"
+                                          [indeterminate]="selection[i].hasValue() && !isAllSelectedEle(element, i)"
+                                          [aria-label]="checkboxLabel(i, element)">
+                            </mat-checkbox> -->
+                          </th>
+                          <td mat-cell *matCellDef="let element">
+                            <mat-checkbox (click)="$event.stopPropagation()"
+                                          (change)="$event ? onSelect(element , i) : null"
+                                          [checked]="selection[i].isSelected(element)"
+                                          [aria-label]="checkboxLabel(i, element)">
+                            </mat-checkbox>
+                          </td>
+                        </ng-container>
+                        <!-- <ng-container matColumnDef="{{innerColumn}}" *ngFor="let innerColumn of innerDisplayedColumns | slice:1 ">
+                          <th mat-header-cell *matHeaderCellDef mat-sort-header> {{innerColumn  | removeSpecialChar | titlecase}} </th>
+                          <td mat-cell *matCellDef="let element">
+                            <span>{{element[innerColumn]}}</span>
+                            <span *ngIf="element[innerColumn]==true" [ngClass]="element[innerColumn] ? 'user-active' : 'user-inactive'">{{element[innerColumn]?"Active":"Inactive"}}</span>
+                          </td>
+                        </ng-container> -->
+
+                        <ng-container matColumnDef="Color">
+                          <th mat-header-cell *matHeaderCellDef mat-sort-header> Colour </th>
+                          <td mat-cell *matCellDef="let element"> {{element.Color}} </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="pig_grp_1">
+                          <th mat-header-cell *matHeaderCellDef mat-sort-header class="pigment-column-width"> Pig Grp 1 </th>
+                          <td mat-cell *matCellDef="let element"> {{element.pig_grp_1}} </td>
+                        </ng-container>
+                        <ng-container matColumnDef="amount_1">
+                          <th mat-header-cell *matHeaderCellDef mat-sort-header class="pigment-column-width"> Amount 1 </th>
+                          <td mat-cell *matCellDef="let element" class="text-center"> {{element.amount_1}} </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="pig_grp_2">
+                          <th mat-header-cell *matHeaderCellDef mat-sort-header class="pigment-column-width"> Pig Grp 2 </th>
+                          <td mat-cell *matCellDef="let element"> {{element.pig_grp_2}} </td>
+                        </ng-container>
+                        <ng-container matColumnDef="amount_2">
+                          <th mat-header-cell *matHeaderCellDef mat-sort-header class="pigment-column-width"> Amount 2 </th>
+                          <td mat-cell *matCellDef="let element" class="text-center"> {{element.amount_2}} </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="pig_grp_3">
+                          <th mat-header-cell *matHeaderCellDef mat-sort-header class="pigment-column-width"> Pig Grp 3 </th>
+                          <td mat-cell *matCellDef="let element"> {{element.pig_grp_3}} </td>
+                        </ng-container>
+                        <ng-container matColumnDef="amount_3">
+                          <th mat-header-cell *matHeaderCellDef mat-sort-header class="pigment-column-width"> Amount 3 </th>
+                          <td mat-cell *matCellDef="let element" class="text-center"> {{element.amount_3}} </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="pig_grp_4">
+                          <th mat-header-cell *matHeaderCellDef mat-sort-header class="pigment-column-width"> Pig Grp 4 </th>
+                          <td mat-cell *matCellDef="let element"> {{element.pig_grp_4}} </td>
+                        </ng-container>
+                        <ng-container matColumnDef="amount_4">
+                          <th mat-header-cell *matHeaderCellDef mat-sort-header class="pigment-column-width"> Amount 4 </th>
+                          <td mat-cell *matCellDef="let element" class="text-center"> {{element.amount_4}} </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="pig_grp_5">
+                          <th mat-header-cell *matHeaderCellDef mat-sort-header class="pigment-column-width"> Pig Grp 5 </th>
+                          <td mat-cell *matCellDef="let element"> {{element.pig_grp_5}} </td>
+                        </ng-container>
+                        <ng-container matColumnDef="amount_5">
+                          <th mat-header-cell *matHeaderCellDef mat-sort-header class="pigment-column-width"> Amount 5 </th>
+                          <td mat-cell *matCellDef="let element" class="text-center"> {{element.amount_5}} </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="pig_grp_6">
+                          <th mat-header-cell *matHeaderCellDef mat-sort-header class="pigment-column-width"> Pig Grp 6 </th>
+                          <td mat-cell *matCellDef="let element"> {{element.pig_grp_6}} </td>
+                        </ng-container>
+                        <ng-container matColumnDef="amount_6">
+                          <th mat-header-cell *matHeaderCellDef mat-sort-header class="pigment-column-width"> Amount 6 </th>
+                          <td mat-cell *matCellDef="let element" class="text-center"> {{element.amount_6}} </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="durability">
+                          <th mat-header-cell *matHeaderCellDef mat-sort-header> Durability </th>
+                          <td mat-cell *matCellDef="let element"> {{element.durability}} </td>
+                        </ng-container>
+                        <ng-container matColumnDef="active_status">
+                          <th mat-header-cell *matHeaderCellDef mat-sort-header> Status </th>
+                          <td mat-cell *matCellDef="let element">
+                            <div  class="d-flex align-items-center">
+                              <span [ngClass]="element.active_status ? 'user-active' : 'user-inactive'"></span>{{element.active_status?"Active":"Inactive"}}
+                            </div>
+                          </td>
+                        </ng-container>
+
+                        <tr mat-header-row *matHeaderRowDef="innerDisplayedColumns"></tr>
+                        <tr mat-row *matRowDef="let row; columns: innerDisplayedColumns;"></tr>
+                      </table>
+                  </div>
+              </div>
+              </td>
+          </ng-container>
+    
+          <!-- Expanded Table Data -->
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let element; columns: displayedColumns;" [class.example-element-row]="element.children?.data.length"
+          [class.example-expanded-row]="expandedElement === element" (click)="toggleRow(element)"></tr>
+          <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="example-detail-row"></tr>
+      </table>
+      <div class="example-no-results"
+        [style.display]="dataSource && dataSource.filteredData && dataSource.filteredData.length == 0 ? '' : 'none'">
+        No data found.
+      </div>
+      <mat-paginator style-paginator class="paginator-container"
+        [showTotalPages]="5"
+        [length]="length"
+        [pageSize]="pageSize"
+        [pageIndex]="pageIndex"
+        [pageSizeOptions]="pageSizeOptions"
+        (pageChange)="nextPageChange($event)"
+        (page)="changePageSize($event)"
+      >
+    </mat-paginator>
+    </div>
+    <ngx-spinner></ngx-spinner>
+</div>  

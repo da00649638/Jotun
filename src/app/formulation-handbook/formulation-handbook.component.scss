@@ -1,0 +1,14 @@
+::ng-deep.filter-search  .mat-form-field-wrapper{
+    position: relative;
+    &:after{
+        position: absolute;
+        top: 7px;
+        right: 13px;
+        content: '';
+        background-image: url('../../assets/search-icon.svg');
+        background-repeat: no-repeat;
+        background-size: cover;
+        width: 20px;
+        height: 25px;
+    }
+}

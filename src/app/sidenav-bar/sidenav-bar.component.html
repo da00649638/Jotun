@@ -5,15 +5,14 @@
 <div class="side-innerwrapper d-flex flex-column justify-content-between">
     <ul class="list-unstyled components">
         <li class="active main-list">
-            <a data-target="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">User Management</a>
+            <a data-target="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Access Management</a>
             <ul class="collapse list-unstyled" id="homeSubmenu">
                 <li>
-                    <a>Users</a>
+                    <a routerLinkActive="active-link" [routerLink]="['/users']">Users</a>
                 </li>
                 <li>
-                    <a>User Group</a>
+                    <a routerLinkActive="active-link" [routerLink]="['/user-groups']">User Group</a>
                 </li>
-                
             </ul>
         </li>
        
@@ -26,22 +25,13 @@
                 <li>
                     <a>Page 2</a>
                 </li>
-                <li>
-                    <a>Page 3</a>
-                </li>
             </ul>
         </li>
         <li class="main-list">
             <a data-target="#pageSubmenu1" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Raw Materials</a>
             <ul class="collapse list-unstyled" id="pageSubmenu1">
                 <li>
-                    <a>Page 1</a>
-                </li>
-                <li>
-                    <a>Page 2</a>
-                </li>
-                <li>
-                    <a>Page 3</a>
+                    <a routerLinkActive="active-link" [routerLink]="['/raw-material']">Raw Material</a>
                 </li>
             </ul>
         </li>
@@ -49,14 +39,8 @@
             <a data-target="#pageSubmenu2" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Pigmentation Library</a>
             <ul class="collapse list-unstyled" id="pageSubmenu2">
                 <li>
-                    <a>Page 1</a>
-                </li>
-                <li>
-                    <a>Page 2</a>
-                </li>
-                <li>
-                    <a>Page 3</a>
-                </li>
+                    <a routerLinkActive="active-link" [routerLink]="['/pigmentation-library']">Pigmentation Library</a>
+                </li> 
             </ul>
         </li>
         <li class="main-list">
@@ -68,9 +52,6 @@
                 <li>
                     <a>Page 2</a>
                 </li>
-                <li>
-                    <a>Page 3</a>
-                </li>
             </ul>
         </li>
         <li class="main-list">
@@ -81,9 +62,6 @@
                 </li>
                 <li>
                     <a>Page 2</a>
-                </li>
-                <li>
-                    <a>Page 3</a>
                 </li>
             </ul>
         </li>

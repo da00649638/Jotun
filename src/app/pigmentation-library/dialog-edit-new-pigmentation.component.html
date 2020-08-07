@@ -1,0 +1,373 @@
+<div class="adduser-dialog-container">
+    <div class="adduser-title d-flex justify-content-between align-items-center">
+        <h3>Edit Pigmentation</h3>
+        <img alt="no-image" src="../../assets/close-icon.svg" (click)='openModal(canceltemplate)' type="button">
+    </div>
+    <div class="dialog-section-wrapper">
+        <form #basicForm = "ngForm" novalidate (ngSubmit)="basicForm.form.valid && updateBasicData(pigmentationObj)">
+            <div class="form-group disabled-field" *ngIf="!addGroup">
+                <div class="search-wrap">
+                    <span class="input-label">Select Colour Group</span><span class="text-danger"> *</span>
+
+                    <!-- <span class="input-label button-add" (click)="addColourGroup()">+ Add New Group</span> -->
+                    
+                </div>
+                <mat-form-field appearance="none" >
+                    <mat-select matInput disabled
+                        placeholder="Select Colour Group" 
+                        #colourGroup = 'ngModel'
+                        required 
+                        name='colourGroupId'
+                        [(ngModel)] = 'pigmentationObj.colourGroupId'
+                        [ngClass]="{'is-invalid': basicForm.submitted && colourGroup.invalid }">
+                        <mat-option *ngFor="let option of colourGroups" [value]="option.id" (onSelectionChange)="onChangeColourGroup(option)">
+                            {{option.name}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <mat-error *ngIf="basicForm.submitted || (colourGroup?.invalid && (colourGroup.dirty || colourGroup.touched))">
+                    <div *ngIf="colourGroup.errors" class="error-msg">
+                        Please Select Colour Group
+                    </div>
+                </mat-error>
+            </div>
+            <div class="form-group" *ngIf="addGroup">
+                <div class="search-wrap">
+                    <span class="input-label">Enter Group Name </span>
+                    <span class="text-danger"> *</span>
+                </div>
+                <mat-form-field appearance="none" >
+                    <input 
+                        matInput 
+                        placeholder="Enter Group Name"
+                        #colourGroupName = 'ngModel'
+                        required 
+                        name='colourGroupName'
+                        [(ngModel)]='pigmentationObj.colourGroupName'
+                        [ngClass]="{'is-invalid': basicForm.submitted && colourGroupName.invalid }">{{pigmentationObj.colourGroupName}}
+                </mat-form-field>
+                <mat-error *ngIf="basicForm.submitted || (colourGroupName?.invalid && (colourGroupName.dirty || colourGroupName.touched))">
+                    <div *ngIf="colourGroupName.errors" class="error-msg">
+                        Please Enter Group Name
+                    </div>
+                </mat-error>
+               
+            </div>
+            <div class="form-group">
+                <div class="search-wrap">
+                    <span class="input-label">Enter Colour ID</span>
+                    <span class="text-danger"> *</span>
+                </div>
+                <mat-form-field appearance="none" >
+                    <input 
+                        matInput 
+                        placeholder="Enter  Colour ID"
+                        #colourCode = 'ngModel'
+                        required 
+                        name='colourCode'
+                        [(ngModel)]='pigmentationObj.colourCode'
+                        
+                        [ngClass]="{'is-invalid': basicForm.submitted && colourCode.invalid }">
+                </mat-form-field>
+               
+                <mat-error *ngIf="basicForm.submitted || (colourCode?.invalid && (colourCode.dirty || colourCode.touched))">
+                    <div *ngIf="colourCode.errors" class="error-msg">
+                        Please Enter Colour ID 
+                    </div>
+                </mat-error>
+            </div>
+            <div class="form-group">
+                <div class="search-wrap">
+                    <span class="input-label">Enter Colour Name</span>
+                    <span class="text-danger"> *</span>
+                </div>
+                <mat-form-field appearance="none" >
+                    <input 
+                        matInput 
+                        placeholder="Enter Colour Name"
+                        #colorName = 'ngModel'
+                        required 
+                        name='selectGroup'
+                        [(ngModel)]='pigmentationObj.colorName'
+                        [ngClass]="{'is-invalid': basicForm.submitted && colorName.invalid }">
+                </mat-form-field>
+                <mat-error *ngIf="basicForm.submitted || (colorName?.invalid && (colorName.dirty || colorName.touched))">
+                    <div *ngIf="colorName.errors" class="error-msg">
+                        Please Enter Colour Name
+                    </div>
+                </mat-error>
+            </div>
+            <div class="form-group">
+                <div class="search-wrap">
+                    <span class="input-label">PVC</span>
+                    <span class="text-danger"> *</span>
+                </div>
+                <div class="form-input-wrap d-flex justify-content-between">
+                   
+                    <div class="form-input">
+                        <mat-form-field appearance="none" >
+                            <input 
+                                matInput 
+                                placeholder="Min"
+                                #pvcMin = 'ngModel'
+                                required 
+                                name='pvcMin'
+                                type="number"
+                                [(ngModel)]='pigmentationObj.pvcMin'
+                                [ngClass]="{'is-invalid': basicForm.submitted && pvcMin.invalid }">
+                        </mat-form-field>
+                        <mat-error *ngIf="basicForm.submitted || (pvcMin?.invalid && (pvcMin.dirty || pvcMin.touched))">
+                            <div *ngIf="pvcMin.errors" class="error-msg">
+                                Please enter Min value
+                            </div>
+                        </mat-error>
+                    </div>
+                    <div class="form-input">
+                        <mat-form-field appearance="none" >
+                            <input 
+                                type="number"
+                                matInput 
+                                placeholder="Max"
+                                #pvcMax = 'ngModel'
+                                required 
+                                name='pvcMax'
+                                [(ngModel)]='pigmentationObj.pvcMax'
+                                [ngClass]="{'is-invalid': basicForm.submitted && pvcMax.invalid }">
+                        </mat-form-field>
+                        <mat-error *ngIf="basicForm.submitted || (pvcMax?.invalid && (pvcMax.dirty || pvcMax.touched))">
+                            <div *ngIf="pvcMax.errors" class="error-msg">
+                                Please enter Max value
+                            </div>
+                        </mat-error>
+                    </div>
+                </div>
+               
+            </div>
+            <div class="form-group">
+                <div class="search-wrap">
+                    <span class="input-label">Filler</span>
+                    <span class="text-danger"> *</span>
+                </div>
+                <div class="form-input-wrap d-flex justify-content-between">
+                    <div class="form-input">
+                        <mat-form-field appearance="none" >
+                            <input 
+                                matInput 
+                                placeholder="Min"
+                                #fillerMin = 'ngModel'
+                                required 
+                                type="number"
+                                name='fillerMin'
+                                [(ngModel)]='pigmentationObj.fillerMin'
+                                [ngClass]="{'is-invalid': basicForm.submitted && fillerMin.invalid }">
+                        </mat-form-field>
+                        <mat-error *ngIf="basicForm.submitted || (fillerMin?.invalid && (fillerMin.dirty || fillerMin.touched))">
+                            <div *ngIf="fillerMin.errors" class="error-msg">
+                                Please enter Min value
+                            </div>
+                        </mat-error>
+                    </div>
+                    <div class="form-input">
+                        <mat-form-field appearance="none" >
+                            <input 
+                                matInput 
+                                placeholder="Max"
+                                #fillerMax = 'ngModel'
+                                required 
+                                type="number"
+                                name='fillerMax'
+                                [(ngModel)]='pigmentationObj.fillerMax'
+                                [ngClass]="{'is-invalid': basicForm.submitted && fillerMax.invalid }">
+                        </mat-form-field>
+                        <mat-error *ngIf="basicForm.submitted || (fillerMax?.invalid && (fillerMax.dirty || fillerMax.touched))">
+                            <div *ngIf="fillerMax.errors" class="error-msg">
+                                Please enter Max value
+                            </div>
+                        </mat-error>
+                    </div>
+                </div>
+               
+            </div>
+            <div class="form-group">
+                <div class="search-wrap">
+                    <span class="input-label">Filler+TiO2</span>
+                    <span class="text-danger"> *</span>
+                </div>
+                <div class="form-input-wrap d-flex justify-content-between">
+                    <div class="form-input">
+                        <mat-form-field appearance="none" >
+                            <input 
+                                matInput 
+                                type="number"
+                                placeholder="Min"
+                                #fillerToMin = 'ngModel'
+                                required 
+                                name='fillerToMin'
+                                [(ngModel)]='pigmentationObj.fillerToMin'
+                                [ngClass]="{'is-invalid': basicForm.submitted && fillerToMin.invalid }">
+                        </mat-form-field>
+                        <mat-error *ngIf="basicForm.submitted || (fillerToMin?.invalid && (fillerToMin.dirty || fillerToMin.touched))">
+                            <div *ngIf="fillerToMin.errors" class="error-msg">
+                                Please enter Min value
+                            </div>
+                        </mat-error>
+                    </div>
+                    <div class="form-input">
+                        <mat-form-field appearance="none" >
+                            <input 
+                                matInput 
+                                type="number"
+                                placeholder="Max"
+                                #fillerToMax = 'ngModel'
+                                required 
+                                name='fillerToMax'
+                                [(ngModel)]='pigmentationObj.fillerToMax'
+                                [ngClass]="{'is-invalid': basicForm.submitted && fillerToMax.invalid }">
+                        </mat-form-field>
+                        <mat-error *ngIf="basicForm.submitted || (fillerToMax?.invalid && (fillerToMax.dirty || fillerToMax.touched))">
+                            <div *ngIf="fillerToMax.errors" class="error-msg">
+                                Please enter Max value
+                            </div>
+                        </mat-error>
+                    </div>
+                </div>
+               
+            </div>
+            <!-- <div class="form-group">
+                <div class="search-wrap">
+                    <span class="input-label">Select Colour</span>
+                </div>
+                <mat-form-field appearance="none" >
+                    <mat-select 
+                        placeholder="Select Colour"
+                        #selectColour = 'ngModel'
+                        required 
+                        name='colour'
+                        [(ngModel)]='pigmentationObj.colour'
+                        [ngClass]="{'is-invalid': basicForm.submitted && selectColour.invalid }">
+                        <mat-option *ngFor="let option of colours" [value]="option.id">
+                            {{option.name}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <mat-error *ngIf="basicForm.submitted || (selectColour?.invalid && (selectColour.dirty || selectColour.touched))">
+                    <div *ngIf="selectColour.errors" class="error-msg">
+                        Please Select Colour
+                    </div>
+                </mat-error>
+            </div> -->
+            <div *ngIf="pigmentationErrorMessage">
+                <div class="">
+                    <span class="error-msg ">{{pigmentationErrorMessage}}</span>
+                </div>
+            </div>
+<!--             
+            <div *ngIf="saveAddPigmentationDataEnable">
+                <div class="search-wrap bg-blue">
+                    <span class="error-msg ">Please click on the Add Pigment LInk to Save the data</span>
+                </div>
+            </div> -->
+            <div class="form-group" *ngIf="this.pigmentationGroupData.length <= 5">
+                <div class="search-wrap">
+                    <span class="input-label ">Select Pigment Group</span>
+                    <span class="text-danger"> *</span>
+                </div>
+                <mat-form-field appearance="none" >
+                    <mat-select matInput
+                        placeholder="Select Pigment Group" 
+                        #pigmentGroup = 'ngModel'
+                        name='pigmentGroup'
+                        [(ngModel)]='pigmentationObj.pigmentGroup'
+                        [ngClass]="{'is-invalid': basicForm.submitted && pigmentGroup.invalid }">
+                        <mat-option aria-disabled="true">
+                            <div class="option-wrap d-flex">
+                                <span><strong>Group No</strong></span>
+                                <span><strong>Group Name</strong></span>
+                            </div>
+                        </mat-option>
+                        <mat-option *ngFor="let option of pigmentGroupTemp; let i = index"  [value]="option" (onSelectionChange)="onChangepigmentGroup(option)">
+                            <div class="option-wrap d-flex">
+                                <span>{{option.rmGroupNo}}</span>
+                                <span>{{option.rmGroupName}}</span>
+                            </div>
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+  
+            </div>
+            <div class="form-group" *ngIf="this.pigmentationGroupData.length <= 5">
+                <div class="search-wrap">
+                    <span class="input-label">Enter Amount</span>
+                    <span class="text-danger"> *</span>
+                </div>
+                <mat-form-field appearance="none" >
+                    <input 
+                        matInput
+                        (input)='valid($event)'
+                        type="number"
+                        placeholder="Enter Amount"
+                        #amount = 'ngModel'
+                        name='amount'
+                        [(ngModel)]='pigmentationObj.amount'
+                        [ngClass]="{'is-invalid': basicForm.submitted && amount.invalid }">
+                </mat-form-field>
+                <button type="button" class="search-wrap plus-add d-flex justify-content-end " [disabled]="addpigmentBtn" [ngClass]="addpigmentBtn ? 'disabled' : ''">
+                    <span class="input-label button-add" (click)="enablePigmentTableBlock()">+ Add Pigment </span>
+                </button>
+            </div>
+            <div class="form-group" *ngIf="enablePigmentTable">
+                <table class="color-group-table">
+                    <thead>
+                        <tr>
+                            <th>RM Group</th>
+                            <th>Amount</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let item of pigmentationGroupData; let i = index">
+                            <td>{{item.rmGroupName}}</td>
+                            <td class="d-flex align-items-center justify-content-between">{{item.amount}}
+                                <img src="../../assets/delete-icon.svg" (click)="deletedPigmentationOption(item, i)">
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="form-group">
+                <div class="search-wrap">
+                    <span class="input-label">Select Durability</span>
+                    <span class="text-danger"> *</span>
+                </div>
+                <mat-form-field appearance="none" >
+                    <mat-select multiple
+                        placeholder="Select Durability"
+                        #durabilityId = 'ngModel'
+                        required 
+                        name='durabilityId'
+                        [(ngModel)]='pigmentationObj.durabilityId'
+                        [ngClass]="{'is-invalid': basicForm.submitted && durabilityId.invalid }">
+                        <mat-option *ngFor="let option of durabile" [value]="option.id">
+                            {{option.name}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <mat-error *ngIf="basicForm.submitted || (durabilityId?.invalid && (durabilityId.dirty || durabilityId.touched))">
+                    <div *ngIf="durabilityId.errors" class="error-msg">
+                        Please Select Durability
+                    </div>
+                </mat-error>
+            </div>
+            <div class="button-wrap d-flex justify-content-end">
+                <button class="cancel-btn" type="button" (click)='openModal(canceltemplate)'>Cancel</button>
+                <button class="add-user" type="submit" >Update</button>
+            </div>
+        </form>
+        <ng-template #canceltemplate>
+            <div class="modal-body text-center">
+              <p>Do you want to cancel?</p>
+              <button type="button" class="btn btn-default" (click)="confirm()" >Yes</button>
+              <button type="button" class="btn btn-primary" style="background-color: #002664; border-color: #002664" (click)="decline()" >No</button>
+            </div>
+          </ng-template>
+    </div>
+</div>

@@ -1,0 +1,67 @@
+<div class="adduser-dialog-container">
+    <div class="adduser-title d-flex justify-content-between align-items-center">
+        <h3>Edit User Group</h3>
+        <img src="../../assets/close-icon.svg" alt="no-image" [mat-dialog-close]="true">
+    </div>
+    <form #groupForm="ngForm" class="dialog-section-wrapper" novalidate (ngSubmit)="groupForm.form.valid && updateGroup()">
+        <div class="row">
+          <div class="search-wrap col-md-6">
+            <span class="input-label">Enter User Group Name</span>
+            <mat-form-field class="form-input" appearance="standard">
+              <input class="toolbar-search" 
+                  type="text" 
+                  matInput 
+                  placeholder="Enter name of User Group"
+                  #usergroup = 'ngModel'
+                  [(ngModel)]="local_data.usergroup_name" 
+                  name="name" required>
+            </mat-form-field>
+            <mat-error *ngIf="groupForm.submitted || (usergroup?.invalid && (usergroup.dirty || usergroup.touched))">
+              <div *ngIf="usergroup.errors" class="error-msg error-group">
+                Please enter User Group Name
+              </div>
+            </mat-error>
+          </div>
+
+          <div class="col-md-6 search-wrap roles-wrap">
+            <span class="roles-title">Country</span>
+            <mat-form-field appearance="standard">
+              <mat-select 
+                  class="toolbar-search" 
+                  #countryId = 'ngModel'
+                  [(ngModel)]="local_country" 
+                  placeholder="Select Country" 
+                  name="Select Country">
+                <mat-option *ngFor="let option of countries" [value]="option.id">
+                  {{option.name}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+            <mat-error *ngIf="groupForm.submitted || (countryId?.invalid && (countryId.dirty || countryId.touched))">
+              <div *ngIf="countryId.errors" class="error-msg">
+                Please select Country
+              </div>
+            </mat-error>
+          </div>
+
+          <div class="search-wrap col-md-12">
+            <span class="roles-title">Assign Level</span>
+            <mat-tab-group (selectedTabChange)="changeTabData($event)">
+              <mat-tab label={{tab.text}} *ngFor="let tab of tabs; let index = index">
+                <br>
+
+                <div class="treeview-container">
+                  <ngx-treeview [config]="config" [items]="items" (click)="onSelectedChange(items,index)"
+                    (filterChange)="onFilterChange($event)">
+                  </ngx-treeview>
+                </div>
+              </mat-tab>
+            </mat-tab-group>
+          </div>
+        </div>
+        <div class="button-wrap d-flex justify-content-end">
+            <button [mat-dialog-close]="true" class="cancel-btn">Cancel</button>
+            <button class="add-user" >Update</button>
+        </div>
+    </form>
+</div>

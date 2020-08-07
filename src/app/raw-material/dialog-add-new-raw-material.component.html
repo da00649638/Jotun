@@ -1,0 +1,745 @@
+<div class="adduser-dialog-container">
+    <div class="adduser-title d-flex justify-content-between align-items-center">
+        <h3 *ngIf="data.addgroup">Add New Raw Material</h3>
+        <h3 *ngIf="!data.addgroup">Edit Raw Material</h3>
+        <img alt="no-image" src="../../assets/close-icon.svg" (click)='openModal(canceltemplate)' type="button">
+    </div>
+   <div class="dialog-section-wrapper">
+    <mat-horizontal-stepper [linear]="isLinear" #stepper class="stepper-progress-form">
+        <ng-template matStepperIcon="edit">
+            <mat-icon>&#10003;</mat-icon>
+        </ng-template>
+        <mat-step label="Basic" state="phone" [stepControl]="basicForm.control">
+            <form  #basicForm = "ngForm" novalidate (ngSubmit)="basicForm.form.valid && rawMaterialData(basicForm.value)">
+                <div *ngIf="!rawMaterialGroupExist" class="d-flex justify-content-between">
+                    <div class="form-group form-group-block">
+                        <div class="search-wrap">
+                            <span class="input-label">Select Group</span>
+                            <span *ngIf="data.addgroup" class="input-label input-right button-add" (click)="rawMaterialGroupExists()">+ Add New Group</span>
+                        </div>
+                        <mat-form-field appearance="none" >
+                            <mat-select matInput
+                                placeholder="Select Group"
+                                #selectGroup = 'ngModel'
+                                name='selectGroup'
+                                [(ngModel)]='basicRawMaterialObj.selectGroup'
+                                [ngClass]="{'is-invalid': basicForm.submitted && selectGroup.invalid }">
+                              <mat-option *ngFor="let option of rawMaterialdata" [value]="option.id">{{option.name}}</mat-option>
+                            </mat-select>
+                          </mat-form-field>
+                          <mat-error *ngIf="basicForm.submitted || (selectGroup?.invalid && (selectGroup.dirty || selectGroup.touched))">
+                            <div *ngIf="selectGroup.errors" class="error-msg">
+                              Please select the Group Name
+                            </div>
+                          </mat-error>
+                    </div>
+                </div>
+
+              <div *ngIf="rawMaterialGroupExist">
+                <div class="d-flex justify-content-between">
+                    <div class="form-group form-group-block ">
+                        <div class="search-wrap">
+                            <span class="input-label">Group Name</span><span class="text-danger"> *</span>
+                        </div>
+                        <mat-form-field appearance="none" >
+                            <input matInput
+                                placeholder="Enter Group Name" 
+                                #nameGroup = 'ngModel'
+                                required 
+                                name='groupName'
+                                [(ngModel)]='groupName'
+
+                                [ngClass]="{'is-invalid': basicForm.submitted && nameGroup.invalid }">
+
+                          </mat-form-field>
+                          <mat-error *ngIf="basicForm.submitted || (nameGroup?.invalid && (nameGroup.dirty || nameGroup.touched))">
+                            <div *ngIf="nameGroup.errors" class="error-msg">
+                              Please Enter Group Name
+                            </div>
+                          </mat-error>
+                    </div>
+
+                    <div class="form-group form-group-block">
+                        <div class="search-wrap">
+                            <span class="input-label">Type of Group </span><span class="text-danger"> *</span>
+                            <span class="input-label input-right button-add" (click)="rawMaterialGroupExists()">Back to listing</span>
+                        </div>
+                        <mat-radio-group required aria-label="Select an option" class="d-flex flex-column" [(ngModel)]='groupType' [ngModelOptions]="{standalone: true}">
+                            <mat-radio-button value=1 >Pigmentation Group</mat-radio-button>
+                            <mat-radio-button value=0>RM Group</mat-radio-button>
+                        </mat-radio-group>
+                    </div>
+                </div>
+                <div class="d-flex justify-content-between">
+
+                    <div class="form-group form-group-block">
+                        <div class="search-wrap">
+                            <span class="input-label">Enter Group No</span><span class="text-danger"> *</span>
+                        </div>
+                        <mat-form-field appearance="none" >
+                            <input matInput
+                                required
+                                placeholder="Enter Group No" 
+                                #groupNo = 'ngModel'
+                                name='groupId'
+                                [(ngModel)]='groupId'
+                                [ngClass]="{'is-invalid': basicForm.submitted && groupNo.invalid }">
+
+                          </mat-form-field>
+                          <mat-error *ngIf="basicForm.submitted || (groupNo?.invalid && (groupNo.dirty || groupNo.touched))">
+                            <div *ngIf="groupNo.errors" class="error-msg">
+                              Please Enter Group No
+                            </div>
+                          </mat-error>
+                    </div>
+                </div>
+              </div>
+                <div >
+                    <div class="d-flex justify-content-between">
+
+                        <div class="form-group form-group-block " [ngClass]="!data.addgroup ? 'disabled-field' : ''">
+
+                            <div class="search-wrap ">
+                                <span class="input-label">RM ID</span><span class="text-danger"> *</span>
+                            </div>
+                            <mat-form-field appearance="none" >
+                                <input
+                                    matInput
+                                    placeholder="Enter RM ID"
+                                    #rmId = 'ngModel'
+                                    required
+                                    name='rmId'
+                                    maxlength = "20"
+                                    [disabled]="!data.addgroup"
+                                    [(ngModel)]='basicRawMaterialObj.rmID'
+                                    [ngClass]="{'is-invalid': basicForm.submitted && rmId.invalid }">
+                            </mat-form-field>
+                            <mat-error *ngIf="basicForm.submitted || (rmId?.invalid && (rmId.dirty || rmId.touched))">
+                                <div *ngIf="rmId.errors" class="error-msg">
+                                Please Enter RM ID
+                                </div>
+                            </mat-error>
+                        </div>
+
+                        <div class="form-group form-group-block " [ngClass]="!data.addgroup ? 'disabled-field' : ''">
+                            <div class="search-wrap">
+                                <span class="input-label">Name of Raw Material</span><span class="text-danger"> *</span>
+                            </div>
+                            <mat-form-field appearance="none" >
+                                <input
+                                    matInput
+                                    placeholder="Enter name of Raw Material"
+                                    #rawName = 'ngModel'
+                                    required
+                                    [disabled]="!data.addgroup"
+                                    name='rawName'
+                                    [(ngModel)]='basicRawMaterialObj.nameRawMaterial'
+                                    [ngClass]="{'is-invalid': basicForm.submitted && rawName.invalid }">
+                            </mat-form-field>
+                            <mat-error *ngIf="basicForm.submitted || (rawName?.invalid && (rawName.dirty || rawName.touched))">
+                                <div *ngIf="rawName.errors" class="error-msg">
+                                    Enter the Raw Material Name
+                                </div>
+                            </mat-error>
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-between" >
+
+                        <div class="form-group form-group-block " [ngClass]="!data.addgroup ? 'disabled-field' : ''">
+                            <div class="search-wrap">
+                                <span class="input-label">Alpha Group</span><span class="text-danger"> *</span>
+                            </div>
+                            <ng-autocomplete class="disabled-field"
+                                required
+                                [data]="alphaGroups"
+                                [searchKeyword]="keyword"
+                                placeHolder="Type in to filter or Add new Alpha Group"
+                                (selected)='selectEvent($event)'
+                                (inputChanged)='onChangeSearch($event)'
+                                (inputFocused)='onFocused($event)'
+                                [itemTemplate]="itemTemplate"
+                                #alphaGroup = 'ngModel'
+                                name="alphaGroup"
+                                maxlength = "10"
+                                [disabled]="!data.addgroup"
+                                [(ngModel)]="basicRawMaterialObj.alphaGroup"
+                                >
+                                </ng-autocomplete>
+                                <ng-template #itemTemplate let-item>
+                                <a [innerHTML]="item.name"></a>
+                                </ng-template>
+                                <mat-error *ngIf="basicForm.submitted || (alphaGroup?.invalid && (alphaGroup.dirty || alphaGroup.touched))">
+                                    <div *ngIf="alphaGroup.errors" class="error-msg">
+                                        Select Alpha Group
+                                    </div>
+                                </mat-error>
+                            <!-- <mat-form-field appearance="none" >
+                                    <mat-select matInput
+                                    placeholder="Select Alpha Group"
+                                    #alphaGroup = 'ngModel'
+                                    required
+                                    name='alphaGroup'
+                                    [(ngModel)]='basicRawMaterialObj.alphaGroup'
+                                    [ngClass]="{'is-invalid': basicForm.submitted && alphaGroup.invalid }">
+                                <mat-option *ngFor="let option of alphaGroups" [value]="option.id">{{option.name}}</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                            <mat-error *ngIf="basicForm.submitted || (alphaGroup?.invalid && (alphaGroup.dirty || alphaGroup.touched))">
+                                <div *ngIf="alphaGroup.errors" class="error-msg">
+                                    Select Alpha Group
+                                </div>
+                            </mat-error> -->
+                        </div>
+
+                        <div class="form-group form-group-block">
+                            <div class="search-wrap">
+                                <span class="input-label">Manufacturer</span>
+                            </div>
+                            <div >
+                                <ng-autocomplete
+                                [data]="manufactures"
+                                [searchKeyword]="keyword"
+                                placeHolder="Type in to filter or Add new Manufacture"
+                                (selected)='selectEvent($event)'
+                                (inputChanged)='onChangeSearch($event)'
+                                (inputFocused)='onFocused($event)'
+                                [itemTemplate]="itemTemplate"
+                                #manufacture = 'ngModel'
+                                name="manufacture"
+                                [(ngModel)]="basicRawMaterialObj.manufacture"
+                                >
+                                </ng-autocomplete>
+                                <ng-template #itemTemplate let-item>
+                                <a [innerHTML]="item.name"></a>
+                                </ng-template>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- <div *ngIf="!data.addgroup">
+                    <div class="d-flex justify-content-between">
+
+                        <div class="form-group form-group-block">
+                            <div class="search-wrap">
+                                <span class="input-label">RM ID</span><span class="text-danger"> *</span>
+                            </div>
+                            <mat-form-field appearance="none" >
+                                <input
+                                    matInput
+                                    placeholder="Enter RM ID"
+                                    #rmId = 'ngModel'
+                                    required
+                                    disabled
+                                    name='rmId'
+                                    [(ngModel)]='basicRawMaterialObj.rmID'
+                                    [ngClass]="{'is-invalid': basicForm.submitted && rmId.invalid }">
+                            </mat-form-field>
+                            <mat-error *ngIf="basicForm.submitted || (rmId?.invalid && (rmId.dirty || rmId.touched))">
+                                <div *ngIf="rmId.errors" class="error-msg">
+                                Please Enter RM ID
+                                </div>
+                            </mat-error>
+                        </div>
+
+                        <div class="form-group form-group-block">
+                            <div class="search-wrap">
+                                <span class="input-label">Name of Raw Material</span><span class="text-danger"> *</span>
+                            </div>
+                            <mat-form-field appearance="none" >
+                                <input
+                                    matInput
+                                    placeholder="Enter name of Raw Material"
+                                    #rawName = 'ngModel'
+                                    required
+                                    disabled
+                                    name='rawName'
+                                    [(ngModel)]='basicRawMaterialObj.nameRawMaterial'
+                                    [ngClass]="{'is-invalid': basicForm.submitted && rawName.invalid }">
+                            </mat-form-field>
+                            <mat-error *ngIf="basicForm.submitted || (rawName?.invalid && (rawName.dirty || rawName.touched))">
+                                <div *ngIf="rawName.errors" class="error-msg">
+                                    Enter the Raw Material Name
+                                </div>
+                            </mat-error>
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-between">
+
+                        <div class="form-group form-group-block">
+                            <div class="search-wrap">
+                                <span class="input-label">Alpha Group</span><span class="text-danger"> *</span>
+                            </div>
+                            <ng-autocomplete
+                                [data]="alphaGroups"
+                                [searchKeyword]="keyword"
+                                placeHolder="Type in to filter or Add new Alpha Group"
+                                (selected)='selectEvent($event)'
+                                (inputChanged)='onChangeSearch($event)'
+                                (inputFocused)='onFocused($event)'
+                                [itemTemplate]="itemTemplate"
+                                #manufacture = 'ngModel'
+                                disabled
+                                name="alphaGroup"
+                                [(ngModel)]="basicRawMaterialObj.alphaGroup"
+                                >
+                                </ng-autocomplete>
+                                <ng-template #itemTemplate let-item>
+                                <a [innerHTML]="item.name"></a>
+                                </ng-template>
+                        </div>
+
+                        <div class="form-group form-group-block">
+                            <div class="search-wrap">
+                                <span class="input-label">Manufacturer</span>
+                            </div>
+                            <div >
+                                <ng-autocomplete
+                                [data]="manufactures"
+                                [searchKeyword]="keyword"
+                                placeHolder="Type in to filter or Add new Manufacture"
+                                (selected)='selectEvent($event)'
+                                (inputChanged)='onChangeSearch($event)'
+                                (inputFocused)='onFocused($event)'
+                                [itemTemplate]="itemTemplate"
+                                #manufacture = 'ngModel'
+                                name="manufacture"
+                                [(ngModel)]="basicRawMaterialObj.manufacture"
+                                >
+                                </ng-autocomplete>
+                                <ng-template #itemTemplate let-item>
+                                <a [innerHTML]="item.name"></a>
+                                </ng-template>
+                            </div>
+                        </div>
+                    </div>
+                </div>  -->
+
+                <div class="d-flex justify-content-between">
+
+                    <div class="form-group form-group-block">
+                        <div class="search-wrap">
+                            <span class="input-label">Technical Coordinator</span>
+                        </div>
+                            <ng-autocomplete
+                            [data]="coordinator"
+                            [searchKeyword]="keyword"
+                            placeHolder="Enter the Technical Coordinator"
+                            placeHolder="Type in to filter or Add new Coordinator"
+                            (selected)='selectEvent($event)'
+                            (inputChanged)='onChangeSearch($event)'
+                            (inputFocused)='onFocused($event)'
+                            [itemTemplate]="itemTemplate"
+                            #technicalCoordinator ="ngModel"
+                            name='technicalCoordinator'
+                            [(ngModel)]='basicRawMaterialObj.technicalCoordinator'
+                            >
+                          </ng-autocomplete>
+                          <ng-template #itemTemplate let-item>
+                            <a [innerHTML]="item.name"></a>
+                          </ng-template>
+
+
+                            <!-- <mat-form-field appearance="none" >
+                                <mat-select
+                                placeholder="Select Technical Coordinator"
+                                required
+                                #technicalCoordinator ="ngModel"
+                                name='technicalCoordinator'
+                                [(ngModel)]='basicRawMaterialObj.technicalCoordinator'
+                                [ngClass]="{'is-invalid': basicForm.submitted && technicalCoordinator.invalid }">
+                                <mat-option *ngFor="let option of coordinator" [value]="option.id">
+                                    {{option.name}}
+                                  </mat-option>
+                            </mat-select>
+                        </mat-form-field>-->
+                        <mat-error *ngIf="basicForm.submitted || (technicalCoordinator?.invalid && (technicalCoordinator.dirty || technicalCoordinator.touched))">
+                            <div *ngIf="technicalCoordinator.errors" class="error-msg">
+                              Please select the Technical Coordinator options
+                            </div>
+                        </mat-error>
+                    </div>
+                    <div class="form-group form-group-block">
+                        <div class="search-wrap">
+                            <span class="input-label">Specific Gravity</span>
+                        </div>
+                         <mat-form-field appearance="none" >
+                         <input matInput
+                                type="number"
+                                (input)='valid($event)'
+                                placeholder="Enter specific gravity"
+                                #specialGravity = 'ngModel'
+                                name='specialGravity'
+                                [(ngModel)]='basicRawMaterialObj.specialGravity'
+                                [ngClass]="{'is-invalid': basicForm.submitted && specialGravity.invalid }"
+                                pattern="^([0-9]+(\.[0-9]+)?)">
+                            </mat-form-field>
+                        <mat-error *ngIf="basicForm.submitted || (specialGravity?.invalid && (specialGravity.dirty || specialGravity.touched))">
+                            <div *ngIf="specialGravity.errors" class="error-msg">
+                                Enter the Specific Gravity
+                            </div>
+                        </mat-error>
+                    </div>
+                </div>
+                <div class="d-flex justify-content-between">
+
+                    <div class="form-group form-group-block">
+                        <div class="search-wrap">
+                            <span class="input-label">Select Durability</span>
+                        </div>
+                        <mat-form-field appearance="none" >
+                            <mat-select multiple
+                                placeholder="Select Durability"
+                                #durability = 'ngModel'
+                                name='durability'
+                                [(ngModel)]='basicRawMaterialObj.durability'
+                                [ngClass]="{'is-invalid': basicForm.submitted && durability.invalid }">
+                                <mat-option *ngFor="let option of durabile" [value]="option.id">
+                                    {{option.name}}
+                                  </mat-option>
+                            </mat-select>
+                          </mat-form-field>
+                          <mat-error *ngIf="basicForm.submitted || (durability?.invalid && (durability.dirty || durability.touched))">
+                            <div *ngIf="durability.errors" class="error-msg">
+                              Please select the Durability options
+                            </div>
+                        </mat-error>
+                    </div>
+                </div>
+                <div class="button-wrap d-flex justify-content-end">
+                    <button class="cancel-btn" type="button" (click)='openModal(canceltemplate)'>Cancel</button>
+                    <button class="cancel-btn" type="button" matStepperNext >Next</button>
+                    <button *ngIf="data.addgroup" class="add-user" type="submit" >Add Raw Material</button>
+                    <button *ngIf="!data.addgroup" class="add-user" type="submit" >Update Raw Material</button>
+                </div>
+            </form>
+        </mat-step>
+        <ng-template #canceltemplate>
+            <div class="modal-body text-center">
+              <p>Do you want to cancel?</p>
+              <button type="button" class="btn btn-default" (click)="confirm()" >Yes</button>
+              <button type="button" class="btn btn-primary" style="background-color: #002664; border-color: #002664" (click)="decline()" >No</button>
+            </div>
+          </ng-template>
+        <mat-step  label="Attributes" [stepControl]="attributeForm.control">
+            <form #attributeForm = "ngForm" novalidate (ngSubmit)="attributeForm.form.valid">
+                <div class="d-flex justify-content-between">
+                    <div class="form-group form-group-block">
+                        <div class="search-wrap">
+                            <span class="input-label">Density (Same as SG)</span>
+                        </div>
+                        <mat-form-field appearance="none" >
+                            <input matInput
+                            (input)='valid($event)'
+                                placeholder="Enter density (Same as SG)"
+                                #density = 'ngModel'
+                                type="number"
+                                name='density'
+                               [(ngModel)]='rawMaterialAttributes.density'>
+                       </mat-form-field>
+                    </div>
+                    <div class="form-group form-group-block">
+                        <div class="search-wrap">
+                            <span class="input-label">Equivalent weight</span>
+                        </div>
+                        <mat-form-field appearance="none" >
+                            <input matInput
+                            (input)='valid($event)'
+                                type="number"
+                                placeholder="Enter equivalent weight"
+                                #equivalentWeight = 'ngModel'
+                                name='equivalentWeight'
+                                [(ngModel)]='rawMaterialAttributes.equivalentWeight '
+
+                                 >
+
+                        </mat-form-field>
+                        <!-- <mat-error *ngIf="basicForm.submitted || (equivalentWeight?.invalid && (equivalentWeight.dirty || equivalentWeight.touched))">
+                            <div *ngIf="equivalentWeight.errors" class="error-msg">
+                                Enter the Equivalent weight
+                            </div>
+                        </mat-error> -->
+                    </div>
+                </div>
+                <div class="d-flex justify-content-between">
+                    <div class="form-group form-group-block">
+                        <div class="search-wrap">
+                            <span class="input-label">Acid value</span>
+                        </div>
+                        <mat-form-field appearance="none" >
+                            <input matInput
+                            (input)='valid($event)'
+                            type="number"
+                            placeholder="Enter acid value"
+                            #acidValue = 'ngModel'
+                            name='acidValue'
+                            [(ngModel)]='rawMaterialAttributes.acidValue'
+                            [ngClass]="{'is-invalid': basicForm.submitted && acidValue.invalid }"
+                            >
+
+                        </mat-form-field>
+                        <!-- <mat-error *ngIf="basicForm.submitted || (acidValue?.invalid && (acidValue.dirty || acidValue.touched))">
+                            <div *ngIf="acidValue.errors" class="error-msg">
+                                Enter the Acid value
+                            </div>
+                        </mat-error> -->
+                    </div>
+                    <div class="form-group form-group-block">
+                        <div class="search-wrap">
+                            <span class="input-label">Carboxyl Equivalent Weight</span>
+                        </div>
+                        <mat-form-field appearance="none" class="disabled-field">
+                            <input matInput
+                            type="number"
+                                disabled
+                                placeholder="56100/Acid value"
+                                #carboxylEquivalentWeight = 'ngModel'
+                                name='carboxylEquivalentWeight'
+                                [(ngModel)]='rawMaterialAttributes.carboxylEquivalentWeight'
+                                value='{{(56100/rawMaterialAttributes.acidValue).toFixed(3) }}'
+                               >
+
+                        </mat-form-field>
+                        <!-- <mat-error *ngIf="basicForm.submitted || (carboxylEquivalentWeight?.invalid && (carboxylEquivalentWeight.dirty || carboxylEquivalentWeight.touched))">
+                            <div *ngIf="carboxylEquivalentWeight.errors" class="error-msg">
+                                Enter the Carboxyl Equivalent Weight
+                            </div>
+                        </mat-error> -->
+                    </div>
+
+                </div>
+                <div class="d-flex justify-content-between">
+                    <div class="form-group form-group-block">
+                        <div class="search-wrap">
+                            <span class="input-label">Hydroxyl value</span>
+                        </div>
+                        <mat-form-field appearance="none" >
+                            <input matInput
+                            (input)='valid($event)'
+                                type="number"
+                                placeholder="Enter hydroxyl value"
+                                #hydroxylValue = 'ngModel'
+                                name='hydroxylValue'
+                                [(ngModel)]='rawMaterialAttributes.hydroxylValue'
+                                [ngClass]="{'is-invalid': basicForm.submitted && hydroxylValue.invalid }"
+                                >
+
+                        </mat-form-field>
+                        <!-- <mat-error *ngIf="basicForm.submitted || (hydroxylValue?.invalid && (hydroxylValue.dirty || hydroxylValue.touched))">
+                            <div *ngIf="hydroxylValue.errors" class="error-msg">
+                                Enter the Hydroxyl value
+                            </div>
+                        </mat-error> -->
+                    </div>
+                    <div class="form-group form-group-block ">
+                        <div class="search-wrap">
+                            <span class="input-label">Polyester/Acrylic/Hydroxyl Equivalent
+                                Weight</span>
+                        </div>
+                        <mat-form-field appearance="none" class="disabled-field">
+                            <input matInput
+                            type="number"
+                                disabled
+                                placeholder="56100/Hydroxyl value"
+                                #polyesterWeight = 'ngModel'
+                                name='polyesterWeight'
+                                [(ngModel)]='rawMaterialAttributes.polyesterWeight'
+                                [value]='(56100/this.rawMaterialAttributes.hydroxylValue).toFixed(3)'
+                               >
+
+                        </mat-form-field>
+                        <!-- <mat-error *ngIf="basicForm.submitted || (polyesterWeight?.invalid && (polyesterWeight.dirty || polyesterWeight.touched))">
+                            <div *ngIf="polyesterWeight.errors" class="error-msg">
+                                Enter the Polyester/Acrylic/Hydroxyl Equivalent
+                            </div>
+                        </mat-error> -->
+                    </div>
+
+                </div>
+                <div class="d-flex justify-content-between">
+                    <div class="form-group form-group-block">
+                        <div class="search-wrap">
+                            <span class="input-label">Oil Absorption</span>
+                        </div>
+                        <mat-form-field appearance="none" >
+                            <input matInput
+                            (input)='valid($event)'
+                                type="number"
+                                placeholder="Enter Oil Absorption"
+                                #oilAbsorption = 'ngModel'
+                                name='oilAbsorption'
+                                [(ngModel)]='rawMaterialAttributes.oilAbsorption'
+                                >
+
+                        </mat-form-field>
+                        <!-- <mat-error *ngIf="basicForm.submitted || (oilAbsorption?.invalid && (oilAbsorption.dirty || oilAbsorption.touched))">
+                            <div *ngIf="oilAbsorption.errors" class="error-msg">
+                                Enter the Oil Absorption
+                            </div>
+                        </mat-error> -->
+                    </div>
+                    <div class="form-group form-group-block">
+                        <div class="search-wrap">
+                            <span class="input-label">Epoxy Equivalent Weight</span>
+                        </div>
+                        <mat-form-field appearance="none" >
+                            <input matInput
+                            (input)='valid($event)'
+                            type="number"
+                                placeholder="Epoxy Equivalent Weight"
+                                #epoxyEquivalentWeight = 'ngModel'
+                                name='epoxyEquivalentWeight'
+                                [(ngModel)]='rawMaterialAttributes.epoxyEquivalentWeight'
+                                >
+
+                        </mat-form-field>
+                        <!-- <mat-error *ngIf="basicForm.submitted || (epoxyEquivalentWeight?.invalid && (epoxyEquivalentWeight.dirty || epoxyEquivalentWeight.touched))">
+                            <div *ngIf="epoxyEquivalentWeight.errors" class="error-msg">
+                                Enter the Epoxy Equivalent Weight
+                            </div>
+                        </mat-error> -->
+                    </div>
+                </div>
+                <div class="d-flex justify-content-between">
+                    <div class="form-group form-group-block">
+                        <div class="search-wrap">
+                            <span class="input-label">Hydroxyl Equivalent Weight</span>
+                        </div>
+                        <mat-form-field appearance="none" >
+                            <input matInput
+                            type="number"
+                            (input)='valid($event)'
+                                placeholder="Enter hydroxyl equivalent weight"
+                                #hydroxylEquivalentWeight = 'ngModel'
+                                name='hydroxylEquivalentWeight'
+                                [(ngModel)]='rawMaterialAttributes.hydroxylEquivalentWeight'
+                               >
+
+                        </mat-form-field>
+                        <!-- <mat-error *ngIf="basicForm.submitted || (hydroxylEquivalentWeight?.invalid && (hydroxylEquivalentWeight.dirty || hydroxylEquivalentWeight.touched))">
+                            <div *ngIf="hydroxylEquivalentWeight.errors" class="error-msg">
+                                Enter the Hydroxyl Equivalent Weight
+                            </div>
+                        </mat-error> -->
+                    </div>
+                    <div class="form-group form-group-block">
+                        <div class="search-wrap">
+                            <span class="input-label">Amino Hydrogen Equivalent Weight</span>
+                        </div>
+                        <mat-form-field appearance="none" >
+                            <input matInput
+                            (input)='valid($event)'
+                            type="number"
+                                placeholder="Enter amino hydrogen equivalent weight"
+                                #aminoHydrogenEquivalentWeight = 'ngModel'
+                                name='aminoHydrogenEquivalentWeight'
+                                [(ngModel)]='rawMaterialAttributes.aminoHydrogenEquivalentWeight'
+                              >
+
+                        </mat-form-field>
+                        <!-- <mat-error *ngIf="basicForm.submitted || (aminoHydrogenEquivalentWeight?.invalid && (aminoHydrogenEquivalentWeight.dirty || aminoHydrogenEquivalentWeight.touched))">
+                            <div *ngIf="aminoHydrogenEquivalentWeight.errors" class="error-msg">
+                                Enter the Amino Hydrogen Equivalent Weight
+                            </div>
+                        </mat-error> -->
+                    </div>
+                </div>
+
+                <div class="d-flex justify-content-between">
+                    <div class="form-group form-group-block">
+                        <div class="search-wrap">
+                            <span class="input-label">NCO Equivalent Weight</span>
+                        </div>
+                        <mat-form-field appearance="none" >
+                            <input matInput
+                            type="number"
+                            (input)='valid($event)'
+                                placeholder="Enter NCO equivalent weight"
+                                #ncoEquivalentWeight = 'ngModel'
+                                name='ncoEquivalentWeight'
+                                [(ngModel)]='rawMaterialAttributes.ncoEquivalentWeight'
+                                >
+
+                        </mat-form-field>
+                        <!-- <mat-error *ngIf="basicForm.submitted || (ncoEquivalentWeight?.invalid && (ncoEquivalentWeight.dirty || ncoEquivalentWeight.touched))">
+                            <div *ngIf="ncoEquivalentWeight.errors" class="error-msg">
+                                Enter the Hydroxyl Equivalent Weight
+                            </div>
+                        </mat-error> -->
+                    </div>
+                    <div class="form-group form-group-block">
+                        <div class="search-wrap">
+                            <span class="input-label">Unsaturated Equivalent Weight</span>
+                        </div>
+                        <mat-form-field appearance="none" >
+                            <input matInput
+                            (input)='valid($event)'
+                            type="number"
+                            placeholder="Enter unsaturated equivalent weight"
+                            #unsaturatedEquivalentWeight = 'ngModel'
+                            name='unsaturatedEquivalentWeight'
+                            [(ngModel)]='rawMaterialAttributes.unsaturatedEquivalentWeight'
+                           >
+
+                    </mat-form-field>
+                    <!-- <mat-error *ngIf="basicForm.submitted || (unsaturatedEquivalentWeight?.invalid && (unsaturatedEquivalentWeight.dirty || unsaturatedEquivalentWeight.touched))">
+                        <div *ngIf="unsaturatedEquivalentWeight.errors" class="error-msg">
+                            Enter the Hydroxyl Equivalent Weight
+                        </div>
+                    </mat-error> -->
+                    </div>
+                </div>
+                <div class="d-flex justify-content-between">
+                    <div class="form-group form-group-block">
+                        <div class="search-wrap">
+                            <span class="input-label">CAS Number</span>
+                        </div>
+                        <mat-form-field appearance="none" >
+                            <input matInput
+                                placeholder="Enter CAS number"
+                                #casNumber = 'ngModel'
+
+                                name='casNumber'
+                                [(ngModel)]='rawMaterialAttributes.casNumber'
+                                >
+
+                        </mat-form-field>
+                        <!-- <mat-error *ngIf="basicForm.submitted || (casNumber?.invalid && (casNumber.dirty || casNumber.touched))">
+                            <div *ngIf="casNumber.errors" class="error-msg">
+                                Enter the Hydroxyl Equivalent Weight
+                            </div>
+                        </mat-error> -->
+                    </div>
+                    <div class="form-group form-group-block">
+                        <div class="search-wrap">
+                            <span class="input-label">Components</span>
+                        </div>
+                        <mat-form-field appearance="none" >
+                            <input matInput
+                                placeholder="Components"
+                                #components = 'ngModel'
+
+                                name='components'
+                                [(ngModel)]='rawMaterialAttributes.components'
+                                >
+
+                        </mat-form-field>
+                        <!-- <mat-error *ngIf="basicForm.submitted || (components?.invalid && (components.dirty || components.touched))">
+                            <div *ngIf="components.errors" class="error-msg">
+                                Enter the Hydroxyl Equivalent Weight
+                            </div>
+                        </mat-error> -->
+                    </div>
+                </div>
+                <div class="button-wrap d-flex justify-content-end">
+                    <button class="cancel-btn" type="button"matStepperPrevious>Back</button>
+                    <button class="cancel-btn" type="button" (click)='openModal(canceltemplate)'>Cancel</button>
+                    <button *ngIf="data.addgroup"class="add-user" type="submit" matStepperNext (click)="saveRawMaterialData(basicForm.value)" >Add Raw Material</button>
+                    <button *ngIf="!data.addgroup" class="add-user" type="submit" (click)='updateRawMaterialData(basicForm.value)'>Update Raw Material</button>
+                </div>
+            </form>
+        </mat-step>
+
+      </mat-horizontal-stepper>
+   </div>
+</div>
